@@ -29,10 +29,12 @@ public class LecturerData {
         return INSTANCE;
     }
 
+    /*
     public static LecturerData getInstance()
     {
         return INSTANCE;
     }
+    */
 
     private List<Lecturer> setOfLecturers;
 
@@ -81,6 +83,22 @@ public class LecturerData {
             }
         }
 
+        return returnValue;
+    }
+
+    /**
+     * Method for searchquery in the searchview of the toolbar.
+     * @param query the search string
+     * @return {@link Collection} of {@link Lecturer}
+     */
+    public Collection<Lecturer> findByLastnameOrFirstname(String query) {
+        Collection<Lecturer> returnValue = new LinkedList<>( );
+        for (Lecturer lecturer : this.setOfLecturers) {
+            if (lecturer.getFirstName().equalsIgnoreCase(query) ||
+                    lecturer.getLastName().equalsIgnoreCase(query)) {
+                returnValue.add(lecturer);
+            }
+        }
         return returnValue;
     }
 

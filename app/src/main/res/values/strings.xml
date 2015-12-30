@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Profpedia</string>
     <string name="cardview_contentdescription">recyclerview_main_cardview_imageview</string>
+    <string name="imageview_toolbar_detail">imageview_toolbar_detail</string>
+    <string name="search">Search</string>
+    <string name="besuchen_sie_die_webseite">Besuchen Sie die Webseite</string>
+    <string name="Raumnummer">Raumnummer: </string>
 </resources>

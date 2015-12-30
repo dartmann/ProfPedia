@@ -13,6 +13,7 @@ import de.davidartmann.profpedia.adapter.viewholder.MainViewHolder;
 import de.davidartmann.profpedia.model.Lecturer;
 
 /**
+ * Adapter for the {@link de.davidartmann.profpedia.activity.MainActivity}'s {@link RecyclerView}.
  * Created by david on 25.12.15.
  */
 public class MainRecyclerviewAdapter extends RecyclerView.Adapter<MainViewHolder> {
@@ -41,5 +42,10 @@ public class MainRecyclerviewAdapter extends RecyclerView.Adapter<MainViewHolder
     @Override
     public int getItemCount() {
         return lecturers.size();
+    }
+
+    public void setNewData(List<Lecturer> lecturers) {
+        this.lecturers = lecturers;
+        notifyDataSetChanged();
     }
 }

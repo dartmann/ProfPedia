@@ -44,7 +44,6 @@ public class ProfDetailActivity extends AppCompatActivity {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.activity_prof_detail_recyclerview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new LecturerDetailRecyclerviewAdapter(
-                R.layout.recyclerview_lecturer_detail_cardview, lecturer, this));
+        recyclerView.setAdapter(new LecturerDetailRecyclerviewAdapter(lecturer, this));
     }
 }

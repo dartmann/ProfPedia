@@ -4,5 +4,8 @@
     <string name="imageview_toolbar_detail">imageview_toolbar_detail</string>
     <string name="search">Search</string>
     <string name="besuchen_sie_die_webseite">Besuchen Sie die Webseite</string>
+    <string name="adresse">Adresse</string>
+    <string name="kontakt">Kontakt</string>
+    <string name="unterricht">Unterricht</string>
     <string name="Raumnummer">Raumnummer: </string>
 </resources>

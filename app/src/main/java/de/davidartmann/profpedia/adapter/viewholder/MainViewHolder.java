@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import de.davidartmann.profpedia.R;
-import de.davidartmann.profpedia.activity.ProfDetailActivity;
+import de.davidartmann.profpedia.activity.LecturerDetailActivity;
 import de.davidartmann.profpedia.model.Lecturer;
 
 /**
@@ -73,7 +73,7 @@ public class MainViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(context, ProfDetailActivity.class);
+        Intent intent = new Intent(context, LecturerDetailActivity.class);
         intent.putExtra("id", getAdapterPosition());
         context.startActivity(intent);
         //Log.d("TAG", "onClick " + getAdapterPosition() + " " + textView.getText());

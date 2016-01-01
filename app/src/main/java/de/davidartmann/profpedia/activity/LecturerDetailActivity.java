@@ -15,10 +15,10 @@ import de.davidartmann.profpedia.adapter.LecturerDetailRecyclerviewAdapter;
 import de.davidartmann.profpedia.model.Lecturer;
 import de.davidartmann.profpedia.utils.LecturerData;
 
-public class ProfDetailActivity extends AppCompatActivity {
+public class LecturerDetailActivity extends AppCompatActivity {
 
     /*
-    private static final String TAG = ProfDetailActivity.class.getSimpleName();
+    private static final String TAG = LecturerDetailActivity.class.getSimpleName();
     */
 
     @Override

@@ -45,6 +45,10 @@ public class LecturerContactViewholder extends LecturerViewholder
                 .findViewById(R.id.recyclerview_lecturer_contact_cardview_imageview_phone);
         textViewPhone = (TextView) itemView
                 .findViewById(R.id.recyclerview_lecturer_contact_cardview_textview_phone);
+        imageViewPhone.setOnClickListener(this);
+        textViewPhone.setOnClickListener(this);
+        imageViewEmail.setOnClickListener(this);
+        textViewEmail.setOnClickListener(this);
     }
 
     public void assignData(Lecturer lecturer) {
@@ -59,28 +63,19 @@ public class LecturerContactViewholder extends LecturerViewholder
     @Override
     public void onClick(View v) {
         if (lecturer != null) {
-            Intent intent = null;
-            String chooserTitle = "";
-            switch (v.getId()) {
-                case R.id.recyclerview_lecturer_contact_cardview_textview_headerdescription:
-                    return;
-                case R.id.recyclerview_lecturer_contact_cardview_imageview_email:
+            if (context != null) {
+                Intent intent = null;
+                int id = v.getId();
+                if (id == R.id.recyclerview_lecturer_contact_cardview_imageview_email
+                        || id == R.id.recyclerview_lecturer_contact_cardview_textview_email) {
                     intent = new Intent(Intent.ACTION_SEND);
                     intent.setType("text/plain");
                     intent.putExtra(Intent.EXTRA_EMAIL, lecturer.getEmail());
                     intent.putExtra(Intent.EXTRA_SUBJECT, "");
                     intent.putExtra(Intent.EXTRA_TEXT, "");
-                    chooserTitle = "Email versenden mit";
-                    break;
-                case R.id.recyclerview_lecturer_contact_cardview_textview_email:
-                    intent = new Intent(Intent.ACTION_SEND);
-                    intent.setType("text/plain");
-                    intent.putExtra(Intent.EXTRA_EMAIL, lecturer.getEmail());
-                    intent.putExtra(Intent.EXTRA_SUBJECT, "");
-                    intent.putExtra(Intent.EXTRA_TEXT, "");
-                    chooserTitle = "Email versenden mit";
-                    break;
-                case R.id.recyclerview_lecturer_contact_cardview_imageview_phone:
+                    context.startActivity(Intent.createChooser(intent, "Email versenden mit"));
+                } else if (id == R.id.recyclerview_lecturer_contact_cardview_imageview_phone
+                        || id == R.id.recyclerview_lecturer_contact_cardview_textview_phone) {
                     intent = new Intent(Intent.ACTION_CALL,
                             Uri.parse("tel:" + lecturer.getPhone().trim()));
                     if (ActivityCompat
@@ -88,22 +83,13 @@ public class LecturerContactViewholder extends LecturerViewholder
                             != PackageManager.PERMISSION_GRANTED) {
                         return;
                     }
-                    chooserTitle = "Anrufen mit";
-                    break;
-                case R.id.recyclerview_lecturer_contact_cardview_textview_phone:
-                    intent = new Intent(Intent.ACTION_CALL,
-                            Uri.parse("tel:" + lecturer.getPhone().trim()));
-                    if (ActivityCompat
-                            .checkSelfPermission(context, Manifest.permission.CALL_PHONE)
-                            != PackageManager.PERMISSION_GRANTED) {
-                        return;
-                    }
-                    chooserTitle = "Anrufen mit";
-                    break;
-                default:
-                    Log.w(TAG, "default path in onItemClick with view id: "+v.getId());
+                    context.startActivity(Intent.createChooser(intent, "Anrufen mit"));
+                }
+            } else {
+                Log.w(TAG, "context is null");
             }
-            context.startActivity(Intent.createChooser(intent, chooserTitle));
+        } else {
+            Log.w(TAG, "lecturer is null");
         }
     }
 }

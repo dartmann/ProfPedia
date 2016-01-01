@@ -29,22 +29,25 @@ public class LecturerAdressViewholder extends LecturerViewholder implements View
     public LecturerAdressViewholder(View itemView, Context context) {
         super(itemView, context);
         this.context = context;
-        itemView.setOnClickListener(this);
         textViewHeaderDescription = (TextView) itemView
                 .findViewById(
                         R.id.recyclerview_lecturer_address_cardview_textview_headerdescription);
         imageViewAddress = (ImageView) itemView
                 .findViewById(R.id.recyclerview_lecturer_address_cardview_imageview_address);
+        imageViewAddress.setOnClickListener(this);
         textViewAddress = (TextView) itemView
                 .findViewById(R.id.recyclerview_lecturer_address_cardview_textview_address);
+        textViewAddress.setOnClickListener(this);
         imageViewRoomnumber = (ImageView) itemView
                 .findViewById(R.id.recyclerview_lecturer_address_cardview_imageview_roomnumber);
         textViewRoomnumber = (TextView) itemView
                 .findViewById(R.id.recyclerview_lecturer_address_cardview_textview_roomnumber);
         imageViewWelearnurl = (ImageView) itemView
                 .findViewById(R.id.recyclerview_lecturer_address_cardview_imageview_welearnurl);
+        imageViewWelearnurl.setOnClickListener(this);
         textViewWelearnurl = (TextView) itemView
                 .findViewById(R.id.recyclerview_lecturer_address_cardview_textview_welearnurl);
+        textViewWelearnurl.setOnClickListener(this);
     }
 
     public void assignData(Lecturer model) {
@@ -61,37 +64,22 @@ public class LecturerAdressViewholder extends LecturerViewholder implements View
 
     @Override
     public void onClick(View v) {
+        Log.d(TAG, v.getId()+"");
         if (context != null) {
             if (lecturer != null) {
-                Intent intent = null;
-                String chooserTitle = "";
-                switch (v.getId()) {
-                    case R.id.recyclerview_lecturer_address_cardview_textview_headerdescription:
-                        return;
-                    case R.id.recyclerview_lecturer_address_cardview_imageview_address:
-                        intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q="+lecturer.getAddress()));
-                        chooserTitle = "Navigieren mit";
-                        break;
-                    case R.id.recyclerview_lecturer_address_cardview_textview_address:
-                        intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q="+lecturer.getAddress()));
-                        chooserTitle = "Navigieren mit";
-                        break;
-                    case R.id.recyclerview_lecturer_address_cardview_imageview_roomnumber:
-                        return;
-                    case R.id.recyclerview_lecturer_address_cardview_textview_roomnumber:
-                        return;
-                    case R.id.recyclerview_lecturer_address_cardview_imageview_welearnurl:
-                        intent = new Intent(Intent.ACTION_VIEW, Uri.parse(lecturer.getUrlWelearn()));
-                        chooserTitle = "Webseite öffnen mit";
-                        break;
-                    case R.id.recyclerview_lecturer_address_cardview_textview_welearnurl:
-                        intent = new Intent(Intent.ACTION_VIEW, Uri.parse(lecturer.getUrlWelearn()));
-                        chooserTitle = "Webseite öffnen mit";
-                        break;
-                    default:
-                        Log.w(TAG, "default path in onItemClick with view id: "+v.getId());
+                Intent intent;
+                int id = v.getId();
+                if (id == R.id.recyclerview_lecturer_address_cardview_imageview_address
+                        || id == R.id.recyclerview_lecturer_address_cardview_textview_address) {
+                    intent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("geo:0,0?q="+lecturer.getAddress()));
+                    context.startActivity(Intent.createChooser(intent, "Navigieren mit"));
+                } else if (id == R.id.recyclerview_lecturer_address_cardview_imageview_welearnurl
+                        || id == R.id.recyclerview_lecturer_address_cardview_textview_welearnurl) {
+                    intent = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse(lecturer.getUrlWelearn()));
+                    context.startActivity(Intent.createChooser(intent, "Webseite öffnen mit"));
                 }
-                context.startActivity(Intent.createChooser(intent, chooserTitle));
             } else {
                 Log.w(TAG, "lecturer is null");
             }

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import de.davidartmann.profpedia.R;
+import de.davidartmann.profpedia.activity.LecturerDetailActivity;
 import de.davidartmann.profpedia.adapter.viewholder.LecturerViewholder;
 import de.davidartmann.profpedia.adapter.viewholder.lecturer.LecturerAdressViewholder;
 import de.davidartmann.profpedia.adapter.viewholder.lecturer.LecturerContactViewholder;
@@ -14,7 +15,7 @@ import de.davidartmann.profpedia.adapter.viewholder.lecturer.LecturerSubjectView
 import de.davidartmann.profpedia.model.Lecturer;
 
 /**
- * Adapter class for the {@link de.davidartmann.profpedia.activity.ProfDetailActivity}'s {@link RecyclerView}.
+ * Adapter class for the {@link LecturerDetailActivity}'s {@link RecyclerView}.
  * Created by david on 30.12.15.
  */
 public class LecturerDetailRecyclerviewAdapter extends RecyclerView.Adapter<LecturerViewholder> {

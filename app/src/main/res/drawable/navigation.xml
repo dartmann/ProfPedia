@@ -5,6 +5,6 @@
     android:viewportWidth="32"
     android:viewportHeight="32">
 
-    <path android:fillColor="#dfff"
+    <path android:fillColor="@color/colorLecturerDetailIcon"
         android:pathData="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z" />
 </vector>

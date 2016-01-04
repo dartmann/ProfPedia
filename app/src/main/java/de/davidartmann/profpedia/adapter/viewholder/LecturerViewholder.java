@@ -71,7 +71,7 @@ public class LecturerViewholder extends RecyclerView.ViewHolder/* implements Vie
 
     /*
     @Override
-    public void onClick(View v) {
+    public void onLecturerClick(View v) {
         if (lecturer != null) {
             Intent intent = null;
             String chooserTitle = "";

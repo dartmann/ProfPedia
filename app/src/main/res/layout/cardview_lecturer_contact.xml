@@ -7,23 +7,28 @@
     android:id="@+id/recyclerview_lecturer_contact_cardview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="3dp"
-    card_view:cardBackgroundColor="@color/cardBackground"
-    card_view:cardElevation="2dp"
-    card_view:cardCornerRadius="0dp">
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    card_view:cardBackgroundColor="@color/colorWhite"
+    card_view:cardElevation="1dp"
+    card_view:cardCornerRadius="2dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <TextView
             android:id="@+id/recyclerview_lecturer_contact_cardview_textview_headerdescription"
-            android:textSize="20sp"
-            android:textStyle="bold"
+            android:textSize="18sp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
+            android:textColor="@color/colorPrimary"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#000000" />
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -37,7 +42,6 @@
                 android:layout_height="match_parent"
                 tools:ignore="ContentDescription" />
             <TextView
-                android:textColor="@color/white"
                 android:id="@+id/recyclerview_lecturer_contact_cardview_textview_email"
                 android:layout_width="wrap_content"
                 android:textSize="18sp"
@@ -57,7 +61,6 @@
                 android:layout_height="match_parent"
                 tools:ignore="ContentDescription" />
             <TextView
-                android:textColor="@color/white"
                 android:id="@+id/recyclerview_lecturer_contact_cardview_textview_phone"
                 android:layout_width="wrap_content"
                 android:textSize="18sp"

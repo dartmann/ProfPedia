@@ -1,16 +1,20 @@
 package de.davidartmann.profpedia.adapter.viewholder;
 
 import android.content.Context;
-import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import de.davidartmann.profpedia.R;
-import de.davidartmann.profpedia.activity.LecturerDetailActivity;
+import de.davidartmann.profpedia.fragment.LecturerListFragment;
 import de.davidartmann.profpedia.model.Lecturer;
 
 /**
@@ -22,18 +26,39 @@ public class MainViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     private ImageView imageView;
     private TextView textView;
     private Context context;
+    private LecturerListFragment.OnLecturerClicked onLecturerClicked;
+    private int screenOrientation;
     //private Palette.Swatch swatch;
 
-    public MainViewHolder(View itemView, Context context) {
+    public MainViewHolder(View itemView, Context context,
+                          LecturerListFragment.OnLecturerClicked onLecturerClicked,
+                          int screenOrientation) {
         super(itemView);
         itemView.setOnClickListener(this);
         this.context = context;
         imageView = (ImageView) itemView.findViewById(R.id.recyclerview_main_cardview_imageview);
         textView = (TextView) itemView.findViewById(R.id.recyclerview_main_cardview_textview);
+        this.onLecturerClicked = onLecturerClicked;
+        this.screenOrientation = screenOrientation;
     }
 
     public void assignData(final Lecturer lecturer) {
-        Picasso.with(context).load(lecturer.getUrlProfileImage()).into(imageView);
+        Picasso.with(context).load(lecturer.getUrlProfileImage()).into(imageView, new Callback() {
+            @Override
+            public void onSuccess() {
+                Bitmap bitmap = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+                if (screenOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    imageView.setImageBitmap(
+                            Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
+                                    bitmap.getHeight()-80));
+                }
+            }
+
+            @Override
+            public void onError() {
+                Log.e("PICASSO ERROR", "Problem with callback while loading image");
+            }
+        });
         /*
         Picasso.with(context).load(lecturer.getUrlProfileImage()).into(new Target() {
             @Override
@@ -73,9 +98,6 @@ public class MainViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(context, LecturerDetailActivity.class);
-        intent.putExtra("id", getAdapterPosition());
-        context.startActivity(intent);
-        //Log.d("TAG", "onClick " + getAdapterPosition() + " " + textView.getText());
+        onLecturerClicked.onLecturerClick(getAdapterPosition());
     }
 }

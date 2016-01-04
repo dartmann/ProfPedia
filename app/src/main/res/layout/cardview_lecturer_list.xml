@@ -6,7 +6,7 @@
     android:layout_margin="5dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    card_view:cardBackgroundColor="@color/colorPrimary"
+    card_view:cardBackgroundColor="@color/colorWhite"
     card_view:cardElevation="1dp"
     card_view:cardCornerRadius="0dp">
 
@@ -16,7 +16,6 @@
         <ImageView
             android:contentDescription="@string/cardview_contentdescription"
             android:id="@+id/recyclerview_main_cardview_imageview"
-            android:src="@android:drawable/sym_def_app_icon"
             android:scaleType="centerCrop"
             android:layout_width="match_parent"
             android:layout_height="180dp" />
@@ -24,10 +23,9 @@
             android:id="@+id/recyclerview_main_cardview_textview"
             android:layout_below="@id/recyclerview_main_cardview_imageview"
             android:textSize="15sp"
-            android:textColor="@color/white"
             android:gravity="center"
-            android:layout_marginStart="2dp"
             android:layout_width="match_parent"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"
             android:layout_height="20dp" />
     </RelativeLayout>
 

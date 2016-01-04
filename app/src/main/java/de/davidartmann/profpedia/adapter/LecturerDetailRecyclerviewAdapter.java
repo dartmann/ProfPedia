@@ -36,17 +36,17 @@ public class LecturerDetailRecyclerviewAdapter extends RecyclerView.Adapter<Lect
             case 0:
                 //Log.i(TAG, "LecturerAdressViewholder");
                 return new LecturerAdressViewholder(LayoutInflater.from(context)
-                        .inflate(R.layout.recyclerview_lecturer_address_cardview,
+                        .inflate(R.layout.cardview_lecturer_address,
                                 parent, false), context);
             case 1:
                 //Log.i(TAG, "LecturerContactViewholder");
                 return new LecturerContactViewholder(LayoutInflater.from(context)
-                        .inflate(R.layout.recyclerview_lecturer_contact_cardview,
+                        .inflate(R.layout.cardview_lecturer_contact,
                                 parent, false), context);
             case 2:
                 //Log.i(TAG, "LecturerSubjectViewholder");
                 return new LecturerSubjectViewholder(LayoutInflater.from(context)
-                        .inflate(R.layout.recyclerview_lecturer_subject_cardview,
+                        .inflate(R.layout.cardview_lecturer_subject,
                                 parent, false), context);
             default:
                 Log.w(TAG, "default path in onCreateViewHolder");

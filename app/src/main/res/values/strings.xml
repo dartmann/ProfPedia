@@ -8,4 +8,10 @@
     <string name="kontakt">Kontakt</string>
     <string name="unterricht">Unterricht</string>
     <string name="Raumnummer">Raumnummer: </string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="dozenten">Dozenten</string>
 </resources>

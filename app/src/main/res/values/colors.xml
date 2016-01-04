@@ -3,6 +3,8 @@
     <color name="colorPrimary">#1E8184</color>
     <color name="colorPrimaryDark">#155A5C</color>
     <color name="colorAccent">#BA2D29</color>
-    <color name="white">#fff</color>
-    <color name="cardBackground">#229FA3</color>
+    <color name="colorWhite">#fff</color>
+    <color name="colorCardBackground">#229FA3</color>
+    <color name="colorNavigationDrawerMenuColor">#545454</color>
+    <color name="colorLecturerDetailIcon">#AEB3B5</color>
 </resources>

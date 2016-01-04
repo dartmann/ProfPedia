@@ -1,14 +1,24 @@
 package de.davidartmann.profpedia.activity;
 
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
+
+import java.util.List;
 
 import de.davidartmann.profpedia.R;
 import de.davidartmann.profpedia.adapter.LecturerDetailRecyclerviewAdapter;
@@ -25,8 +35,12 @@ public class LecturerDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lecturer_detail);
-        ImageView imageViewHeader = (ImageView) findViewById(R.id.activity_prof_detail_imageview_header);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_prof_detail_toolbar);
+        final ImageView imageViewHeader =
+                (ImageView) findViewById(R.id.activity_lecturer_detail_collapseimageview);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.activity_lecturer_detail_toolbar);
+        final CollapsingToolbarLayout collapsingToolbarLayout =
+                (CollapsingToolbarLayout) findViewById(
+                        R.id.activity_lecturer_detail_collapsing_toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -40,10 +54,87 @@ public class LecturerDetailActivity extends AppCompatActivity {
                 lecturer.getTitle(),
                 lecturer.getFirstName(),
                 lecturer.getLastName()));
-        Picasso.with(this).load(lecturer.getUrlProfileImage()).into(imageViewHeader);
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.activity_prof_detail_recyclerview);
+        Picasso.with(this).load(lecturer.getUrlProfileImage()).into(new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                if (getScreenOrientation() == Configuration.ORIENTATION_PORTRAIT) {
+                    imageViewHeader.setImageBitmap(
+                            Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
+                                    bitmap.getHeight()-180));
+                } else {
+                    imageViewHeader.setImageBitmap(
+                            Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
+                                    bitmap.getHeight()-270));
+                }
+                Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
+                    @Override
+                    public void onGenerated(Palette palette) {
+                        /*
+                        Palette.Swatch s = palette.getDarkMutedSwatch();
+                        if (s != null) {
+                            Log.d("getDarkMutedSwatch", s.getRgb()+"");
+                        }
+                        s = palette.getLightVibrantSwatch();
+                        if (s != null) {
+                            Log.d("getLightVibrantSwatch", s.getRgb()+"");
+                        }
+                        s = palette.getMutedSwatch();
+                        if (s != null) {
+                            Log.d("getMutedSwatch", s.getRgb()+"");
+                        }
+                        s = palette.getDarkVibrantSwatch();
+                        if (s != null) {
+                            Log.d("getDarkVibrantSwatch", s.getRgb()+"");
+                        }
+                        s = palette.getLightMutedSwatch();
+                        if (s != null) {
+                            Log.d("getLightMutedSwatch", s.getRgb()+"");
+                        }
+                        s = palette.getVibrantSwatch();
+                        if (s != null) {
+                            Log.d("getVibrantSwatch", s.getRgb()+"");
+                        }
+                        */
+                        Log.d("getMutedColor", palette.getMutedColor(
+                                ContextCompat.getColor(
+                                        LecturerDetailActivity.this,
+                                        R.color.colorPrimary))+"");
+                        collapsingToolbarLayout.setContentScrimColor(
+                                palette.getVibrantColor(
+                                        ContextCompat.getColor(
+                                                LecturerDetailActivity.this,
+                                                R.color.colorPrimary)));
+                        Log.d("getDarkMutedColor", palette.getDarkMutedColor(
+                                ContextCompat.getColor(
+                                        LecturerDetailActivity.this,
+                                        R.color.colorPrimaryDark))+"");
+                        collapsingToolbarLayout.setStatusBarScrimColor(
+                                palette.getDarkVibrantColor(
+                                        ContextCompat.getColor(
+                                                LecturerDetailActivity.this,
+                                                R.color.colorPrimaryDark)));
+                    }
+                });
+            }
+
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+            }
+        });
+        RecyclerView recyclerView =
+                (RecyclerView) findViewById(R.id.activity_lecturer_detail_recyclerview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new LecturerDetailRecyclerviewAdapter(lecturer, this));
+    }
+
+    private int getScreenOrientation() {
+        return getResources().getConfiguration().orientation;
     }
 }

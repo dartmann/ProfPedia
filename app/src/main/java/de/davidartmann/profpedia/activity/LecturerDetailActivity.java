@@ -49,7 +49,8 @@ public class LecturerDetailActivity extends AppCompatActivity {
             getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
         }
         Intent intent = getIntent();
-        Lecturer lecturer = LecturerData.getInstance(this).getLecturer(intent.getIntExtra("id", 0));
+        //Lecturer lecturer = LecturerData.getInstance(this).getLecturer(intent.getIntExtra("id", 0));
+        Lecturer lecturer = (Lecturer) intent.getSerializableExtra("lecturer");
         toolbar.setTitle(String.format("%s"+" "+"%s"+" "+"%s",
                 lecturer.getTitle(),
                 lecturer.getFirstName(),
@@ -69,32 +70,6 @@ public class LecturerDetailActivity extends AppCompatActivity {
                 Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
                     @Override
                     public void onGenerated(Palette palette) {
-                        /*
-                        Palette.Swatch s = palette.getDarkMutedSwatch();
-                        if (s != null) {
-                            Log.d("getDarkMutedSwatch", s.getRgb()+"");
-                        }
-                        s = palette.getLightVibrantSwatch();
-                        if (s != null) {
-                            Log.d("getLightVibrantSwatch", s.getRgb()+"");
-                        }
-                        s = palette.getMutedSwatch();
-                        if (s != null) {
-                            Log.d("getMutedSwatch", s.getRgb()+"");
-                        }
-                        s = palette.getDarkVibrantSwatch();
-                        if (s != null) {
-                            Log.d("getDarkVibrantSwatch", s.getRgb()+"");
-                        }
-                        s = palette.getLightMutedSwatch();
-                        if (s != null) {
-                            Log.d("getLightMutedSwatch", s.getRgb()+"");
-                        }
-                        s = palette.getVibrantSwatch();
-                        if (s != null) {
-                            Log.d("getVibrantSwatch", s.getRgb()+"");
-                        }
-                        */
                         Log.d("getMutedColor", palette.getMutedColor(
                                 ContextCompat.getColor(
                                         LecturerDetailActivity.this,

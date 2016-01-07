@@ -28,7 +28,7 @@ public class MainViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     private Context context;
     private LecturerListFragment.OnLecturerClicked onLecturerClicked;
     private int screenOrientation;
-    //private Palette.Swatch swatch;
+    private Lecturer lecturer;
 
     public MainViewHolder(View itemView, Context context,
                           LecturerListFragment.OnLecturerClicked onLecturerClicked,
@@ -43,6 +43,7 @@ public class MainViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     }
 
     public void assignData(final Lecturer lecturer) {
+        this.lecturer = lecturer;
         Picasso.with(context).load(lecturer.getUrlProfileImage()).into(imageView, new Callback() {
             @Override
             public void onSuccess() {
@@ -59,36 +60,6 @@ public class MainViewHolder extends RecyclerView.ViewHolder implements View.OnCl
                 Log.e("PICASSO ERROR", "Problem with callback while loading image");
             }
         });
-        /*
-        Picasso.with(context).load(lecturer.getUrlProfileImage()).into(new Target() {
-            @Override
-            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                imageView.setImageBitmap(bitmap);
-                Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
-                    @Override
-                    public void onGenerated(Palette palette) {
-                        swatch = palette.getLightVibrantSwatch();
-                        if (swatch != null) {
-                            Log.i(TAG, String.valueOf(swatch.getRgb()));
-                            textView.setBackgroundColor(swatch.getRgb());
-                        } else {
-                            Log.d(TAG, "Palette swatch was null");
-                        }
-                    }
-                });
-            }
-
-            @Override
-            public void onBitmapFailed(Drawable errorDrawable) {
-
-            }
-
-            @Override
-            public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-            }
-        });
-        */
         if (lecturer.getTitle().isEmpty() || lecturer.getTitle().equals(" ")) {
             textView.setText(String.format("%s", lecturer.getLastName().trim()));
         } else {
@@ -98,6 +69,7 @@ public class MainViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
     @Override
     public void onClick(View v) {
-        onLecturerClicked.onLecturerClick(getAdapterPosition());
+        //onLecturerClicked.onLecturerClick(getAdapterPosition());
+        onLecturerClicked.onLecturerClick(lecturer);
     }
 }

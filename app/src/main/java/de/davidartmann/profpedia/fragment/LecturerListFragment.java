@@ -95,8 +95,12 @@ public class LecturerListFragment extends Fragment {
         mra.setNewData(filteredLecturers);
     }
 
+    /**
+     * Interface for the clickhandling contract between activity and (fragment->adapter->viewholder)
+     */
     public interface OnLecturerClicked {
-        void onLecturerClick(int position);
+        //void onLecturerClick(int position);
+        void onLecturerClick(Lecturer lecturer);
     }
 
     private int getScreenOrientation() {

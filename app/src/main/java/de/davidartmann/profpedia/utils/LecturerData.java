@@ -87,7 +87,7 @@ public class LecturerData {
     }
 
     /**
-     * Method for searchquery in the searchview of the toolbar.
+     * Method for searching by first- and lastname.
      * @param query the search string
      * @return {@link Collection} of {@link Lecturer}
      */
@@ -96,6 +96,16 @@ public class LecturerData {
         for (Lecturer lecturer : this.setOfLecturers) {
             if (lecturer.getFirstName().equalsIgnoreCase(query) ||
                     lecturer.getLastName().equalsIgnoreCase(query)) {
+                returnValue.add(lecturer);
+            }
+        }
+        return returnValue;
+    }
+
+    public Collection<Lecturer> findByLastname(String lastname) {
+        Collection<Lecturer> returnValue = new LinkedList<>( );
+        for (Lecturer lecturer : this.setOfLecturers) {
+            if (lecturer.getLastName().equalsIgnoreCase(lastname)) {
                 returnValue.add(lecturer);
             }
         }

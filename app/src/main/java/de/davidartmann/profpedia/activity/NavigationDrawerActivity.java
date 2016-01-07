@@ -16,6 +16,7 @@ import android.view.MenuItem;
 
 import de.davidartmann.profpedia.R;
 import de.davidartmann.profpedia.fragment.LecturerListFragment;
+import de.davidartmann.profpedia.model.Lecturer;
 
 public class NavigationDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -99,7 +100,7 @@ public class NavigationDrawerActivity extends AppCompatActivity
     }
 
     @Override
-    public void onLecturerClick(int position) {
+    public void onLecturerClick(Lecturer lecturer) {
         /*
         Bundle bundle = new Bundle();
         bundle.putInt("id", position);
@@ -108,7 +109,8 @@ public class NavigationDrawerActivity extends AppCompatActivity
         replaceFragment(fragment, true);
         */
         Intent intent = new Intent(this, LecturerDetailActivity.class);
-        intent.putExtra("id", position);
+        //intent.putExtra("id", position);
+        intent.putExtra("lecturer", lecturer);
         startActivity(intent);
     }
 }

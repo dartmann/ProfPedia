@@ -1,9 +1,12 @@
 package de.davidartmann.profpedia.model;
 
+import java.io.Serializable;
+
 /**
+ * Lecturer model class.
  * Created by david on 25.12.15.
  */
-public class Lecturer {
+public class Lecturer implements Serializable {
 
     private int id;
     private String firstName;

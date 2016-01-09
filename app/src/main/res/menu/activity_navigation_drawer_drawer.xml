@@ -12,7 +12,7 @@
         <item
             android:id="@+id/nav_lecturer_net"
             android:icon="@drawable/school"
-            android:title="@string/dozenten_netzwerk" />
+            android:title="@string/Mensa" />
         <!--
         <item
             android:id="@+id/nav_gallery"

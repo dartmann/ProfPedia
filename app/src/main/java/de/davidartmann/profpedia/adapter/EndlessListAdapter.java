@@ -5,15 +5,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import java.util.List;
 
-import de.davidartmann.profpedia.R;
 import de.davidartmann.profpedia.adapter.viewholder.EndlessListViewholder;
 import de.davidartmann.profpedia.fragment.EndlessListFragment;
 
 /**
+ * Adapter for the endlesslistfragment.
  * Created by david on 09.01.16.
  */
 public class EndlessListAdapter extends RecyclerView.Adapter<EndlessListViewholder> {
@@ -21,14 +20,14 @@ public class EndlessListAdapter extends RecyclerView.Adapter<EndlessListViewhold
     private List<String> items;
     private int layout;
     private Handler handler;
-    private EndlessListFragment.OnShowProgressBar onShowProgressBar;
+    private EndlessListFragment.IProgressBar iProgressBar;
 
     public EndlessListAdapter(List<String> items, int layout,
-                              EndlessListFragment.OnShowProgressBar onShowProgressBar) {
+                              EndlessListFragment.IProgressBar iProgressBar) {
         this.items = items;
         this.layout = layout;
         this.handler = new Handler();
-        this.onShowProgressBar = onShowProgressBar;
+        this.iProgressBar = iProgressBar;
     }
 
     @Override
@@ -49,12 +48,12 @@ public class EndlessListAdapter extends RecyclerView.Adapter<EndlessListViewhold
         new Thread() {
             @Override
             public void run() {
-                onShowProgressBar.showProgressBar(true);
+                iProgressBar.showProgressBar(true);
                 waitForSomeTime();
                 for (int i = startIndex; i<(startIndex+numberOfNewData); i++) {
                     items.add("Entry "+i);
                 }
-                onShowProgressBar.showProgressBar(false);
+                iProgressBar.showProgressBar(false);
                 informAdapter();
             }
         }.start();

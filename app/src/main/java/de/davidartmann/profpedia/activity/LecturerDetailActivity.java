@@ -18,12 +18,9 @@ import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
-import java.util.List;
-
 import de.davidartmann.profpedia.R;
-import de.davidartmann.profpedia.adapter.LecturerDetailRecyclerviewAdapter;
+import de.davidartmann.profpedia.adapter.LecturerDetailAdapter;
 import de.davidartmann.profpedia.model.Lecturer;
-import de.davidartmann.profpedia.utils.LecturerData;
 
 public class LecturerDetailActivity extends AppCompatActivity {
 
@@ -106,7 +103,7 @@ public class LecturerDetailActivity extends AppCompatActivity {
                 (RecyclerView) findViewById(R.id.activity_lecturer_detail_recyclerview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new LecturerDetailRecyclerviewAdapter(lecturer, this));
+        recyclerView.setAdapter(new LecturerDetailAdapter(lecturer, this));
     }
 
     private int getScreenOrientation() {

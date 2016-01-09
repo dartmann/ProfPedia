@@ -22,7 +22,9 @@ import de.davidartmann.profpedia.model.Lecturer;
 
 public class NavigationDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        LecturerListFragment.OnLecturerClicked, EndlessListFragment.OnShowProgressBar {
+        LecturerListFragment.IOnLecturerClicked,
+        EndlessListFragment.IProgressBar,
+        LecturerListFragment.IProgressBar {
 
     private static final String TAG = NavigationDrawerActivity.class.getSimpleName();
 
@@ -95,6 +97,11 @@ public class NavigationDrawerActivity extends AppCompatActivity
         return true;
     }
 
+    /**
+     * Helper method for replacing a fragment with the actual in the framelayout.
+     * @param fragment new fragment.
+     * @param isAllowedToBackStack is the backstack allowed or not.
+     */
     private void replaceFragment(Fragment fragment, boolean isAllowedToBackStack) {
         //http://www.vogella.com/tutorials/AndroidFragments/article.html
         FragmentTransaction ft = getSupportFragmentManager()
@@ -108,6 +115,10 @@ public class NavigationDrawerActivity extends AppCompatActivity
                 .commit();
     }
 
+    /**
+     * Interface callback method for the click on a lecturer.
+     * @param lecturer the lecturer which was clicked.
+     */
     @Override
     public void onLecturerClick(Lecturer lecturer) {
         Intent intent = new Intent(this, LecturerDetailActivity.class);
@@ -116,16 +127,26 @@ public class NavigationDrawerActivity extends AppCompatActivity
         startActivity(intent);
     }
 
+    /**
+     * Interface callback method to show or dismiss the progressbar in the activity.
+     * @param b true or false to show or dismiss the progressbar
+     */
     @Override
     public void showProgressBar(final boolean b) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                if (b) {
-                    progressBar.setVisibility(View.VISIBLE);
-                } else {
-                    progressBar.setVisibility(View.INVISIBLE);
-                }
+                progressBar.setVisibility(b ? View.VISIBLE : View.INVISIBLE);
+            }
+        });
+    }
+
+    @Override
+    public void showProgressBarForLecturerList(final boolean b) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                progressBar.setVisibility(b ? View.VISIBLE : View.INVISIBLE);
             }
         });
     }

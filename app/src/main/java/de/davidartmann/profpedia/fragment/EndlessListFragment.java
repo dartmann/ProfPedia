@@ -6,12 +6,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,12 +23,12 @@ import de.davidartmann.profpedia.adapter.EndlessListAdapter;
  */
 public class EndlessListFragment extends Fragment {
 
-    private OnShowProgressBar onShowProgressBar;
+    private IProgressBar iProgressBar;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        this.onShowProgressBar = (OnShowProgressBar) context;
+        this.iProgressBar = (IProgressBar) context;
     }
 
     @Nullable
@@ -44,7 +42,7 @@ public class EndlessListFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         recyclerView.setAdapter(new EndlessListAdapter(createDummyData(),
                 android.R.layout.simple_list_item_1,
-                onShowProgressBar));
+                iProgressBar));
         return view;
     }
 
@@ -56,7 +54,7 @@ public class EndlessListFragment extends Fragment {
         return data;
     }
 
-    public interface OnShowProgressBar {
+    public interface IProgressBar {
         void showProgressBar(boolean b);
     }
 }

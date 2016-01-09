@@ -9,6 +9,8 @@ import com.owlike.genson.Genson;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import de.davidartmann.profpedia.model.Lecturer;
 
@@ -16,22 +18,22 @@ import de.davidartmann.profpedia.model.Lecturer;
  * Asynctask for the Lecturerlist to load the data from the network.
  * Created by david on 09.01.16.
  */
-public class LoadLecturerFromNetwork extends AsyncTask<Void, Void, List<Lecturer>> {
+public class LoadLecturerFromNetwork extends AsyncTask<String, Void, List<Lecturer>> {
 
     private IGetLecturerDataFromNetwork iGetLecturerDataFromNetwork;
     private Context context;
+    private HttpURLConnection httpURLConnection;
 
     public LoadLecturerFromNetwork(IGetLecturerDataFromNetwork i, Context c) {
-        //this.IGetLecturerDataFromNetwork = i;
-        iGetLecturerDataFromNetwork = (IGetLecturerDataFromNetwork) context;
+        this.iGetLecturerDataFromNetwork = i;
         this.context = c;
     }
 
     @Override
-    protected List<Lecturer> doInBackground(Void... voids) {
-        HttpURLConnection httpURLConnection = null;
+    protected List<Lecturer> doInBackground(String... strings) {
+        httpURLConnection = null;
         try {
-            URL url = new URL("http://193.175.31.146:8080/fiwincoming/api/lecturers?size=10");
+            URL url = new URL(strings[0]);
             httpURLConnection = (HttpURLConnection) url.openConnection();
             Genson genson = new Genson();
             return genson.deserialize(httpURLConnection.getInputStream(),
@@ -54,12 +56,51 @@ public class LoadLecturerFromNetwork extends AsyncTask<Void, Void, List<Lecturer
     @Override
     protected void onPostExecute(List<Lecturer> lecturers) {
         super.onPostExecute(lecturers);
-        //Genson genson = new Genson();
-        //List<Lecturer> lecturers = genson.deserialize(inputStream, new GenericType<List<Lecturer>>() {});
-        iGetLecturerDataFromNetwork.getLecturers(lecturers);
+        String nextUrl = checkIfMoreDataInBackend(httpURLConnection.getHeaderFields());
+        int totalNumberOfDataInBackend =
+                getTotalNumberOfDataSetsInBackend(httpURLConnection.getHeaderFields());
+        iGetLecturerDataFromNetwork.fetchLecturers(lecturers, totalNumberOfDataInBackend, nextUrl);
+    }
+
+    private String checkIfMoreDataInBackend(Map<String, List<String>> headerFields) {
+        Set<Map.Entry<String, List<String>>> entries = headerFields.entrySet();
+        for (Map.Entry<String, List<String>> e : entries) {
+            if (e.getKey() != null) {
+                if (e.getKey().equals("Link")) {
+                    //Log.d("KEY", e.getKey());
+                    for (String value : e.getValue()) {
+                        if (value != null) {
+                            //Log.d("VALUE", value);
+                            if (value.toLowerCase().contains("rel=\"next\"")) {
+                                //Log.d("INFO", "There is more data!");
+                                return value.substring(value.indexOf("<")+1, value.indexOf(">"));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return "";
+    }
+
+    public int getTotalNumberOfDataSetsInBackend(Map<String, List<String>> headerFields) {
+        Set<Map.Entry<String, List<String>>> entries = headerFields.entrySet();
+        //Set<String> keys = headerFields.keySet();
+        for (Map.Entry<String, List<String>> e : entries) {
+            if (e.getKey() != null) {
+                if (e.getKey().equals("X-totalnumberofresults")) {
+                    for (String value : e.getValue()) {
+                        if (value != null) {
+                            return Integer.valueOf(value);
+                        }
+                    }
+                }
+            }
+        }
+        return 0;
     }
 
     public interface IGetLecturerDataFromNetwork {
-        void getLecturers(List<Lecturer> lecturers);
+        void fetchLecturers(List<Lecturer> lecturers, int numberOfBackenData, String nextUrl);
     }
 }

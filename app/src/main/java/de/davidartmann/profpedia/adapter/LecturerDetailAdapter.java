@@ -18,14 +18,14 @@ import de.davidartmann.profpedia.model.Lecturer;
  * Adapter class for the {@link LecturerDetailActivity}'s {@link RecyclerView}.
  * Created by david on 30.12.15.
  */
-public class LecturerDetailRecyclerviewAdapter extends RecyclerView.Adapter<LecturerViewholder> {
+public class LecturerDetailAdapter extends RecyclerView.Adapter<LecturerViewholder> {
 
-    private static final String TAG = LecturerDetailRecyclerviewAdapter.class.getSimpleName();
+    private static final String TAG = LecturerDetailAdapter.class.getSimpleName();
 
     private Lecturer lecturer;
     private Context context;
 
-    public LecturerDetailRecyclerviewAdapter(Lecturer lecturer, Context context) {
+    public LecturerDetailAdapter(Lecturer lecturer, Context context) {
         this.lecturer = lecturer;
         this.context = context;
     }

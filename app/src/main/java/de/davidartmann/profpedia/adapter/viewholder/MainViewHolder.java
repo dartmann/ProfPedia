@@ -26,19 +26,19 @@ public class MainViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     private ImageView imageView;
     private TextView textView;
     private Context context;
-    private LecturerListFragment.OnLecturerClicked onLecturerClicked;
+    private LecturerListFragment.IOnLecturerClicked IOnLecturerClicked;
     private int screenOrientation;
     private Lecturer lecturer;
 
     public MainViewHolder(View itemView, Context context,
-                          LecturerListFragment.OnLecturerClicked onLecturerClicked,
+                          LecturerListFragment.IOnLecturerClicked IOnLecturerClicked,
                           int screenOrientation) {
         super(itemView);
         itemView.setOnClickListener(this);
         this.context = context;
         imageView = (ImageView) itemView.findViewById(R.id.recyclerview_main_cardview_imageview);
         textView = (TextView) itemView.findViewById(R.id.recyclerview_main_cardview_textview);
-        this.onLecturerClicked = onLecturerClicked;
+        this.IOnLecturerClicked = IOnLecturerClicked;
         this.screenOrientation = screenOrientation;
     }
 
@@ -69,7 +69,7 @@ public class MainViewHolder extends RecyclerView.ViewHolder implements View.OnCl
 
     @Override
     public void onClick(View v) {
-        //onLecturerClicked.onLecturerClick(getAdapterPosition());
-        onLecturerClicked.onLecturerClick(lecturer);
+        //IOnLecturerClicked.onLecturerClick(getAdapterPosition());
+        IOnLecturerClicked.onLecturerClick(lecturer);
     }
 }

@@ -9,7 +9,6 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,18 +16,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.owlike.genson.GenericType;
-import com.owlike.genson.Genson;
-
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
 import de.davidartmann.profpedia.R;
-import de.davidartmann.profpedia.adapter.MainRecyclerviewAdapter;
-import de.davidartmann.profpedia.async.LoadLecturerFromNetwork;
+import de.davidartmann.profpedia.adapter.LecturerListAdapter;
 import de.davidartmann.profpedia.model.Lecturer;
-import de.davidartmann.profpedia.utils.LecturerData;
 
 /**
  * Fragment for the list of lecturers.
@@ -36,14 +26,16 @@ import de.davidartmann.profpedia.utils.LecturerData;
  */
 public class LecturerListFragment extends Fragment {
 
-    private List<Lecturer> lecturers;
-    private MainRecyclerviewAdapter mra;
-    private OnLecturerClicked onLecturerClicked;
+    //private List<Lecturer> lecturers;
+    private LecturerListAdapter mra;
+    private IOnLecturerClicked iOnLecturerClicked;
+    private IProgressBar iProgressBar;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        onLecturerClicked = (OnLecturerClicked) context;
+        iOnLecturerClicked = (IOnLecturerClicked) context;
+        iProgressBar = (IProgressBar) context;
     }
 
     @Nullable
@@ -52,8 +44,8 @@ public class LecturerListFragment extends Fragment {
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_lecturer_list, container, false);
         setHasOptionsMenu(true);
-        LecturerData lecturerData = new LecturerData(view.getContext());
-        lecturers = lecturerData.getLecturers();
+        //LecturerData lecturerData = new LecturerData(view.getContext());
+        //lecturers = lecturerData.getLecturers();
         RecyclerView recyclerView =
                 (RecyclerView) view.findViewById(R.id.fragment_lecturer_list_recyclerview);
         recyclerView.setHasFixedSize(true);
@@ -64,8 +56,11 @@ public class LecturerListFragment extends Fragment {
             sglm = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
         }
         recyclerView.setLayoutManager(sglm);
-        mra = new MainRecyclerviewAdapter(R.layout.cardview_lecturer_list,
-                lecturers, view.getContext(), onLecturerClicked, getScreenOrientation());
+        mra = new LecturerListAdapter(R.layout.cardview_lecturer_list,
+                /*lecturers,*/ view.getContext(),
+                iOnLecturerClicked,
+                getScreenOrientation(),
+                iProgressBar);
         recyclerView.setAdapter(mra);
         return view;
     }
@@ -73,7 +68,6 @@ public class LecturerListFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_search, menu);
-        Log.d("OPTIONS", "greift!");
         final MenuItem searchItem = menu.findItem(R.id.action_search);
         final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -106,11 +100,22 @@ public class LecturerListFragment extends Fragment {
     /**
      * Interface for the clickhandling contract between activity and (fragment->adapter->viewholder)
      */
-    public interface OnLecturerClicked {
-        //void onLecturerClick(int position);
+    public interface IOnLecturerClicked {
         void onLecturerClick(Lecturer lecturer);
     }
 
+    /**
+     * Interface for the {@link android.widget.ProgressBar} handling.
+     */
+    public interface IProgressBar {
+        void showProgressBarForLecturerList(boolean b);
+    }
+
+    /**
+     * Method to get the screenorientation.
+     * @return either {@link Configuration#ORIENTATION_PORTRAIT}
+     * or {@link Configuration#ORIENTATION_LANDSCAPE}.
+     */
     private int getScreenOrientation() {
         return getResources().getConfiguration().orientation;
     }

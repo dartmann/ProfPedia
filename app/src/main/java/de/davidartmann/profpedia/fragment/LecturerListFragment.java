@@ -17,11 +17,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.owlike.genson.GenericType;
+import com.owlike.genson.Genson;
+
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import de.davidartmann.profpedia.R;
 import de.davidartmann.profpedia.adapter.MainRecyclerviewAdapter;
+import de.davidartmann.profpedia.async.LoadLecturerFromNetwork;
 import de.davidartmann.profpedia.model.Lecturer;
 import de.davidartmann.profpedia.utils.LecturerData;
 
@@ -45,7 +50,7 @@ public class LecturerListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_lecturer_list, container, false);
+        final View view = inflater.inflate(R.layout.fragment_lecturer_list, container, false);
         setHasOptionsMenu(true);
         LecturerData lecturerData = new LecturerData(view.getContext());
         lecturers = lecturerData.getLecturers();
@@ -79,21 +84,24 @@ public class LecturerListFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                fetchLecturerByLastname(newText);
+                mra.filter(newText);
+                //fetchLecturerByLastname(newText);
                 return true;
             }
         });
     }
 
+    /*
     private void fetchLecturerByLastname(String query) {
         List<Lecturer> filteredLecturers = new ArrayList<>();
         for (Lecturer l : lecturers) {
-            if (l.getLastName().toLowerCase().contains(query.toLowerCase())) {
+            if (l.getLastName().toLowerCase().startsWith(query.toLowerCase())) {
                 filteredLecturers.add(l);
             }
         }
         mra.setNewData(filteredLecturers);
     }
+    */
 
     /**
      * Interface for the clickhandling contract between activity and (fragment->adapter->viewholder)

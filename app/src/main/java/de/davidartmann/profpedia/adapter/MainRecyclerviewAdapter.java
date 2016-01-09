@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import de.davidartmann.profpedia.adapter.viewholder.MainViewHolder;
+import de.davidartmann.profpedia.async.LoadLecturerFromNetwork;
 import de.davidartmann.profpedia.fragment.LecturerListFragment;
 import de.davidartmann.profpedia.model.Lecturer;
 
@@ -16,7 +17,8 @@ import de.davidartmann.profpedia.model.Lecturer;
  * Adapter for the {@link LecturerListFragment}'s {@link RecyclerView}.
  * Created by david on 25.12.15.
  */
-public class MainRecyclerviewAdapter extends RecyclerView.Adapter<MainViewHolder> {
+public class MainRecyclerviewAdapter extends RecyclerView.Adapter<MainViewHolder>
+        implements LoadLecturerFromNetwork.IGetLecturerDataFromNetwork {
 
     private int layout;
     private List<Lecturer> lecturers;
@@ -28,7 +30,7 @@ public class MainRecyclerviewAdapter extends RecyclerView.Adapter<MainViewHolder
                                    LecturerListFragment.OnLecturerClicked onLecturerClicked,
                                    int screenOrientation) {
         this.layout = layout;
-        this.lecturers = lecturers;
+        //this.lecturers = lecturers;
         this.context = context;
         this.onLecturerClicked = onLecturerClicked;
         this.screenOrientation = screenOrientation;
@@ -50,8 +52,44 @@ public class MainRecyclerviewAdapter extends RecyclerView.Adapter<MainViewHolder
         return lecturers.size();
     }
 
+    //TODO: fix the search to work!!!
+    public void filter(String query) {
+        int posInCurrentList = 0;
+        for(int posInOrigList = 0; posInOrigList < lecturers.size(); posInOrigList++) {
+            Lecturer lecturer = lecturers.get(posInOrigList);
+            posInCurrentList = findPosOfLecturerInCurrentList(lecturer, posInCurrentList);
+            if (lecturer.getLastName().toLowerCase().startsWith(query.toLowerCase())) {
+                if (posInCurrentList >= lecturers.size()
+                        || lecturers.get(posInCurrentList).getId() == lecturer.getId()) {
+                    lecturers.add(posInCurrentList, lecturer);
+                    notifyItemInserted(posInCurrentList);
+                }
+            } else {
+                if (posInCurrentList < lecturers.size()
+                        && lecturers.get(posInCurrentList).getId() == lecturer.getId()) {
+                    lecturers.remove(posInCurrentList);
+                    notifyItemRemoved(posInCurrentList);
+                }
+            }
+        }
+    }
+
+    private int findPosOfLecturerInCurrentList(Lecturer lecturer, int posInCurrentList) {
+        for (int i = posInCurrentList; i<lecturers.size(); i++) {
+            if (lecturer.getId() == lecturers.get(i).getId()) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
     public void setNewData(List<Lecturer> lecturers) {
         this.lecturers = lecturers;
-        notifyDataSetChanged();
+        notifyDataSetChanged(); //not the best way
+    }
+
+    @Override
+    public void getLecturers(List<Lecturer> lecturers) {
+
     }
 }

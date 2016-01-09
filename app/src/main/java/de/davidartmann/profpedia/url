@@ -1,0 +1,4 @@
+193.175.31.146:8080/fiwincoming/api/lecturers
+193.175.31.146:8080/fiwincoming/api/lecturers?size=100
+193.175.31.146:8080/fiwincoming/api/lecturers?size=10&offset=10
+es gibt relationstypen die mit prev, self, oder next auf die jeweiligen datensätze hinweisen

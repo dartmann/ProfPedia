@@ -14,4 +14,6 @@
 
     <string name="action_settings">Settings</string>
     <string name="dozenten">Dozenten</string>
+    <string name="endlose_liste">Endlose Liste</string>
+    <string name="dozenten_netzwerk">Dozenten Netzwerk</string>
 </resources>

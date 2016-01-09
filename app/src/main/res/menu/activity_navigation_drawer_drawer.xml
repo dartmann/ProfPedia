@@ -6,6 +6,13 @@
             android:id="@+id/nav_lecturer"
             android:icon="@drawable/school"
             android:title="@string/dozenten" />
+        <item
+            android:id="@+id/nav_endlesslist"
+            android:title="@string/endlose_liste" />
+        <item
+            android:id="@+id/nav_lecturer_net"
+            android:icon="@drawable/school"
+            android:title="@string/dozenten_netzwerk" />
         <!--
         <item
             android:id="@+id/nav_gallery"

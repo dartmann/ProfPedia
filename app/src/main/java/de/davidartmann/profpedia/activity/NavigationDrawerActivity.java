@@ -11,26 +11,32 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import de.davidartmann.profpedia.R;
+import de.davidartmann.profpedia.fragment.EndlessListFragment;
 import de.davidartmann.profpedia.fragment.LecturerListFragment;
 import de.davidartmann.profpedia.model.Lecturer;
 
 public class NavigationDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        LecturerListFragment.OnLecturerClicked {
+        LecturerListFragment.OnLecturerClicked, EndlessListFragment.OnShowProgressBar {
 
     private static final String TAG = NavigationDrawerActivity.class.getSimpleName();
+
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_drawer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar_navigation_drawer_toolbar);
+        progressBar = (ProgressBar) findViewById(R.id.app_bar_navigation_drawer_progressbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.app_name);
+        //TODO: drawer find one time and reuse
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -80,6 +86,9 @@ public class NavigationDrawerActivity extends AppCompatActivity
         if (id == R.id.nav_lecturer) {
             replaceFragment(new LecturerListFragment(), false);
         }
+        if (id == R.id.nav_endlesslist) {
+            replaceFragment(new EndlessListFragment(), false);
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -101,16 +110,23 @@ public class NavigationDrawerActivity extends AppCompatActivity
 
     @Override
     public void onLecturerClick(Lecturer lecturer) {
-        /*
-        Bundle bundle = new Bundle();
-        bundle.putInt("id", position);
-        Fragment fragment = new LecturerDetailFragment_OLD();
-        fragment.setArguments(bundle);
-        replaceFragment(fragment, true);
-        */
         Intent intent = new Intent(this, LecturerDetailActivity.class);
         //intent.putExtra("id", position);
         intent.putExtra("lecturer", lecturer);
         startActivity(intent);
+    }
+
+    @Override
+    public void showProgressBar(final boolean b) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (b) {
+                    progressBar.setVisibility(View.VISIBLE);
+                } else {
+                    progressBar.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
     }
 }

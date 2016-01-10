@@ -83,7 +83,7 @@ public class LoadLecturerFromNetwork extends AsyncTask<String, Void, List<Lectur
         return "";
     }
 
-    public int getTotalNumberOfDataSetsInBackend(Map<String, List<String>> headerFields) {
+    private int getTotalNumberOfDataSetsInBackend(Map<String, List<String>> headerFields) {
         Set<Map.Entry<String, List<String>>> entries = headerFields.entrySet();
         //Set<String> keys = headerFields.keySet();
         for (Map.Entry<String, List<String>> e : entries) {

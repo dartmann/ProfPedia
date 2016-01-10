@@ -1,14 +1,13 @@
 package de.davidartmann.profpedia.adapter;
 
 import android.content.Context;
-import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import de.davidartmann.profpedia.adapter.viewholder.MainViewHolder;
@@ -30,12 +29,12 @@ public class LecturerListAdapter extends RecyclerView.Adapter<MainViewHolder>
     private LecturerListFragment.IOnLecturerClicked iOnLecturerClicked;
     private int screenOrientation;
     private LecturerListFragment.IProgressBar iProgressBar;
-    private Handler handler;
     private int numberOfBackendData;
     private String nextUrl;
 
 
-    public LecturerListAdapter(int layout/*, List<Lecturer> lecturers*/, Context context,
+    public LecturerListAdapter(int layout,
+                               Context context,
                                LecturerListFragment.IOnLecturerClicked iOnLecturerClicked,
                                int screenOrientation,
                                LecturerListFragment.IProgressBar iProgressBar) {
@@ -51,7 +50,6 @@ public class LecturerListAdapter extends RecyclerView.Adapter<MainViewHolder>
         //TODO: maybe network check and let info appear?
         new LoadLecturerFromNetwork(this, context)
                 .execute("http://193.175.31.146:8080/fiwincoming/api/lecturers?size=10");
-        handler = new Handler();
     }
 
     @Override
@@ -64,23 +62,27 @@ public class LecturerListAdapter extends RecyclerView.Adapter<MainViewHolder>
     public void onBindViewHolder(MainViewHolder holder, int position) {
         if (position >= getItemCount()-1) {
             if (!nextUrl.equals("")) {
-                loadMoreData(holder);
+                loadMoreData();
             }
         }
-        holder.assignData(lecturers.get(position));
+        holder.assignData(filteredLecturers.get(position));
     }
 
-    private void loadMoreData(MainViewHolder holder) {
+    private void loadMoreData() {
         new Thread() {
             @Override
             public void run() {
                 iProgressBar.showProgressBarForLecturerList(true);
-                //TODO: just for showcase, remove if not neeeded any more
+                /**
+                 * just for showcase, because with wifi it loads so fast
+                 * we do not see the progressbar
+                 *
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                 */
                 new LoadLecturerFromNetwork(LecturerListAdapter.this, context).execute(nextUrl);
             }
         }.start();
@@ -88,54 +90,43 @@ public class LecturerListAdapter extends RecyclerView.Adapter<MainViewHolder>
 
     @Override
     public int getItemCount() {
-        return lecturers.size();
+        return filteredLecturers.size();
     }
 
-    //TODO: fix the search to work!!!
     public void filter(String query) {
-        if (!query.equals("")) {
-            List<Lecturer> tempLecturers = lecturers;
-            int currentPos = 0;
-            for(int posInOrigList = 0; posInOrigList < tempLecturers.size(); posInOrigList++) {
-                Lecturer lecturer = lecturers.get(posInOrigList);
-                currentPos = findPosOfLecturerInCurrentList(lecturer, currentPos);
-                if (lecturer.getLastName().toLowerCase().startsWith(query.toLowerCase())) {
-                    if (currentPos >= lecturers.size()
-                            || lecturers.get(currentPos).getId() == lecturer.getId()) {
-                        lecturers.add(currentPos, lecturer);
-                        notifyItemInserted(currentPos);
+        if (!query.isEmpty()) {
+            for (Lecturer l : lecturers) {
+                //get position of lecturer in filtered list
+                int pos = filteredLecturers.indexOf(l);
+                //check if lastname is not starting with query
+                if (!l.getLastName().trim().toLowerCase().startsWith(query.trim().toLowerCase())) {
+                    //if lecturer is in filtered list
+                    if (pos != -1) {
+                        //lecturer does not fit -> remove from filtered list
+                        filteredLecturers.remove(pos);
+                        notifyItemRemoved(pos);
                     }
                 } else {
-                    if (currentPos < lecturers.size()
-                            && lecturers.get(currentPos).getId() == lecturer.getId()) {
-                        lecturers.remove(currentPos);
-                        notifyItemRemoved(currentPos);
+                    //lecturer is not in filtered list, but he should be
+                    if (pos == -1) {
+                        //add to filtered list, sort,
+                        // and search for index to tell ui where to display insertion
+                        filteredLecturers.add(l);
+                        Collections.sort(filteredLecturers);
+                        notifyItemInserted(filteredLecturers.indexOf(l));
                     }
                 }
             }
+        } else {
+            filteredLecturers = new ArrayList<>(this.lecturers);
+            notifyDataSetChanged();
         }
     }
-
-    private int findPosOfLecturerInCurrentList(Lecturer lecturer, int posInCurrentList) {
-        for (int i = posInCurrentList; i<lecturers.size(); i++) {
-            if (lecturer.getId() == lecturers.get(i).getId()) {
-                return i;
-            }
-        }
-        return 0;
-    }
-
-    /*
-    public void setNewData(List<Lecturer> lecturers) {
-        this.lecturers = lecturers;
-        notifyDataSetChanged(); //not the best way
-    }
-    */
 
     @Override
     public void fetchLecturers(List<Lecturer> lecturers, int numberOfBackendData, String nextUrl) {
         this.lecturers.addAll(lecturers);
-        filteredLecturers = lecturers;
+        filteredLecturers = new ArrayList<>(this.lecturers); //(List<Lecturer>) ((ArrayList<Lecturer>) this.lecturers).clone();
         this.nextUrl = nextUrl;
         this.numberOfBackendData = numberOfBackendData;
         iProgressBar.showProgressBarForLecturerList(false);

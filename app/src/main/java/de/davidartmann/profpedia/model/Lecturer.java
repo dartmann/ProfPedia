@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Lecturer model class.
  * Created by david on 25.12.15.
  */
-public class Lecturer implements Serializable {
+public class Lecturer implements Serializable, Comparable<Lecturer> {
 
     private int id;
     private String firstName;
@@ -97,5 +97,10 @@ public class Lecturer implements Serializable {
 
     public void setRoomNumber(String roomNumber) {
         this.roomNumber = roomNumber;
+    }
+
+    @Override
+    public int compareTo(Lecturer another) {
+        return this.getLastName().compareToIgnoreCase(another.getLastName());
     }
 }

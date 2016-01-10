@@ -30,6 +30,7 @@ public class LecturerListFragment extends Fragment {
     private LecturerListAdapter mra;
     private IOnLecturerClicked iOnLecturerClicked;
     private IProgressBar iProgressBar;
+    private RecyclerView recyclerView;
 
     @Override
     public void onAttach(Context context) {
@@ -46,7 +47,7 @@ public class LecturerListFragment extends Fragment {
         setHasOptionsMenu(true);
         //LecturerData lecturerData = new LecturerData(view.getContext());
         //lecturers = lecturerData.getLecturers();
-        RecyclerView recyclerView =
+        recyclerView =
                 (RecyclerView) view.findViewById(R.id.fragment_lecturer_list_recyclerview);
         recyclerView.setHasFixedSize(true);
         StaggeredGridLayoutManager sglm;
@@ -79,23 +80,11 @@ public class LecturerListFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) {
                 mra.filter(newText);
-                //fetchLecturerByLastname(newText);
+                //recyclerView.scrollToPosition(0);
                 return true;
             }
         });
     }
-
-    /*
-    private void fetchLecturerByLastname(String query) {
-        List<Lecturer> filteredLecturers = new ArrayList<>();
-        for (Lecturer l : lecturers) {
-            if (l.getLastName().toLowerCase().startsWith(query.toLowerCase())) {
-                filteredLecturers.add(l);
-            }
-        }
-        mra.setNewData(filteredLecturers);
-    }
-    */
 
     /**
      * Interface for the clickhandling contract between activity and (fragment->adapter->viewholder)

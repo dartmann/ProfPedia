@@ -88,8 +88,14 @@ public class NavigationDrawerActivity extends AppCompatActivity
         if (id == R.id.nav_lecturer) {
             replaceFragment(new LecturerListFragment(), false);
         }
+        /*
         if (id == R.id.nav_endlesslist) {
             replaceFragment(new EndlessListFragment(), false);
+        }
+        */
+        if (id == R.id.nav_mensa) {
+            Intent intent = new Intent(this, MensaActivity.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -16,5 +16,14 @@
     <string name="dozenten">Dozenten</string>
     <string name="endlose_liste">Endlose Liste</string>
     <string name="dozenten_netzwerk">Dozenten Netzwerk</string>
-    <string name="Mensa">Mensa</string>
+    <string name="mensa">Mensa</string>
+    <string-array name="activity_mensa_tabtitles">
+        <item>Montag</item>
+        <item>Dienstag</item>
+        <item>Mittwoch</item>
+        <item>Donnerstag</item>
+        <item>Freitag</item>
+        <item>Samstag</item>
+        <item>Sonntag</item>
+    </string-array>
 </resources>

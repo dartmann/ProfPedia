@@ -37,6 +37,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activity.MensaActivity"
+            android:parentActivityName=".activity.NavigationDrawerActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.NavigationDrawerActivity" />
+        </activity>
     </application>
 
 </manifest>

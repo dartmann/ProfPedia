@@ -1,7 +1,10 @@
-package de.davidartmann.profpedia.adapter;
+package de.davidartmann.profpedia.adapter.lecturer;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +13,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import de.davidartmann.profpedia.adapter.viewholder.MainViewHolder;
+import de.davidartmann.profpedia.adapter.lecturer.viewholder.MainViewHolder;
 import de.davidartmann.profpedia.async.LoadLecturerFromNetwork;
-import de.davidartmann.profpedia.fragment.LecturerListFragment;
+import de.davidartmann.profpedia.fragment.lecturer.LecturerListFragment;
 import de.davidartmann.profpedia.model.Lecturer;
 
 /**
@@ -21,6 +24,8 @@ import de.davidartmann.profpedia.model.Lecturer;
  */
 public class LecturerListAdapter extends RecyclerView.Adapter<MainViewHolder>
         implements LoadLecturerFromNetwork.IGetLecturerDataFromNetwork {
+
+    private static final String TAG = LecturerListAdapter.class.getSimpleName();
 
     private int layout;
     private List<Lecturer> lecturers;
@@ -31,6 +36,8 @@ public class LecturerListAdapter extends RecyclerView.Adapter<MainViewHolder>
     private LecturerListFragment.IProgressBar iProgressBar;
     private int numberOfBackendData;
     private String nextUrl;
+
+    private String baseUrl = "http://193.175.31.146:8080/fiwincoming/api/lecturers?size=10";
 
 
     public LecturerListAdapter(int layout,
@@ -49,7 +56,7 @@ public class LecturerListAdapter extends RecyclerView.Adapter<MainViewHolder>
         this.screenOrientation = screenOrientation;
         //TODO: maybe network check and let info appear?
         new LoadLecturerFromNetwork(this, context)
-                .execute("http://193.175.31.146:8080/fiwincoming/api/lecturers?size=10");
+                .execute(baseUrl);
     }
 
     @Override
@@ -125,27 +132,37 @@ public class LecturerListAdapter extends RecyclerView.Adapter<MainViewHolder>
 
     @Override
     public void fetchLecturers(List<Lecturer> lecturers, int numberOfBackendData, String nextUrl) {
-        this.lecturers.addAll(lecturers);
-        filteredLecturers = new ArrayList<>(this.lecturers); //(List<Lecturer>) ((ArrayList<Lecturer>) this.lecturers).clone();
-        this.nextUrl = nextUrl;
-        this.numberOfBackendData = numberOfBackendData;
-        iProgressBar.showProgressBarForLecturerList(false);
-        /**
-         * Because we are in the callback method of the IGetLecturerDataFromNetwork interface,
-         * which is called inside the async task, we do not need the handler here.
-         */
-        notifyDataSetChanged();
-        //informAdapter();
+        if (lecturers != null && numberOfBackendData != 0 /*&& !nextUrl.equals("")*/) { //nextUrl has this value, when we fetched the last url from the backend
+            this.lecturers.addAll(lecturers);
+            filteredLecturers = new ArrayList<>(this.lecturers); //(List<Lecturer>) ((ArrayList<Lecturer>) this.lecturers).clone();
+            this.nextUrl = nextUrl;
+            this.numberOfBackendData = numberOfBackendData;
+            iProgressBar.showProgressBarForLecturerList(false);
+            /**
+             * Because we are in the callback method of the IGetLecturerDataFromNetwork interface,
+             * which is called inside the async task, we do not need the handler here.
+             */
+            notifyDataSetChanged();
+            //informAdapter();
+        } else {
+            Log.w(TAG, "response empty");
+            AlertDialog.Builder builder = new AlertDialog.Builder(context)
+                    .setMessage("Lecturer konnten leider nicht geladen werden.\nNochmal versuchen?")
+                    .setTitle("Hinweis")
+                    .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            new LoadLecturerFromNetwork(LecturerListAdapter.this, context)
+                                    .execute(baseUrl);
+                        }
+                    })
+                    .setNegativeButton("Nein", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+            builder.create().show();
+        }
     }
-
-    /*
-    private void informAdapter() {
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                notifyDataSetChanged();
-            }
-        });
-    }
-    */
 }

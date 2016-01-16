@@ -67,12 +67,9 @@ public class LoadLecturerFromNetwork extends AsyncTask<String, Void, List<Lectur
         for (Map.Entry<String, List<String>> e : entries) {
             if (e.getKey() != null) {
                 if (e.getKey().equals("Link")) {
-                    //Log.d("KEY", e.getKey());
                     for (String value : e.getValue()) {
                         if (value != null) {
-                            //Log.d("VALUE", value);
                             if (value.toLowerCase().contains("rel=\"next\"")) {
-                                //Log.d("INFO", "There is more data!");
                                 return value.substring(value.indexOf("<")+1, value.indexOf(">"));
                             }
                         }

@@ -1,4 +1,4 @@
-package de.davidartmann.profpedia.adapter;
+package de.davidartmann.profpedia.adapter.lecturer;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,10 +8,10 @@ import android.view.ViewGroup;
 
 import de.davidartmann.profpedia.R;
 import de.davidartmann.profpedia.activity.LecturerDetailActivity;
-import de.davidartmann.profpedia.adapter.viewholder.LecturerViewholder;
-import de.davidartmann.profpedia.adapter.viewholder.lecturer.LecturerAdressViewholder;
-import de.davidartmann.profpedia.adapter.viewholder.lecturer.LecturerContactViewholder;
-import de.davidartmann.profpedia.adapter.viewholder.lecturer.LecturerSubjectViewholder;
+import de.davidartmann.profpedia.adapter.lecturer.viewholder.LecturerViewholder;
+import de.davidartmann.profpedia.adapter.lecturer.viewholder.lecturer.LecturerAdressViewholder;
+import de.davidartmann.profpedia.adapter.lecturer.viewholder.lecturer.LecturerContactViewholder;
+import de.davidartmann.profpedia.adapter.lecturer.viewholder.lecturer.LecturerSubjectViewholder;
 import de.davidartmann.profpedia.model.Lecturer;
 
 /**

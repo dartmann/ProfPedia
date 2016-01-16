@@ -1,4 +1,4 @@
-package de.davidartmann.profpedia.fragment;
+package de.davidartmann.profpedia.fragment.mensa;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

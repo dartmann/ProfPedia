@@ -1,4 +1,4 @@
-package de.davidartmann.profpedia.adapter.viewholder;
+package de.davidartmann.profpedia.adapter.lecturer.viewholder;
 
 import android.content.Context;
 import android.content.res.Configuration;
@@ -14,7 +14,7 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import de.davidartmann.profpedia.R;
-import de.davidartmann.profpedia.fragment.LecturerListFragment;
+import de.davidartmann.profpedia.fragment.lecturer.LecturerListFragment;
 import de.davidartmann.profpedia.model.Lecturer;
 
 /**

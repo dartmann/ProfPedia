@@ -2,31 +2,28 @@ package de.davidartmann.profpedia.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
 import de.davidartmann.profpedia.R;
-import de.davidartmann.profpedia.fragment.EndlessListFragment;
-import de.davidartmann.profpedia.fragment.LecturerListFragment;
+import de.davidartmann.profpedia.fragment.lecturer.LecturerListFragment;
 import de.davidartmann.profpedia.model.Lecturer;
 
 public class NavigationDrawerActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         LecturerListFragment.IOnLecturerClicked,
-        EndlessListFragment.IProgressBar,
         LecturerListFragment.IProgressBar {
 
-    private static final String TAG = NavigationDrawerActivity.class.getSimpleName();
+    //private static final String TAG = NavigationDrawerActivity.class.getSimpleName();
 
     private ProgressBar progressBar;
 
@@ -69,16 +66,6 @@ public class NavigationDrawerActivity extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            Log.d(TAG, "settings clicked");
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -88,11 +75,6 @@ public class NavigationDrawerActivity extends AppCompatActivity
         if (id == R.id.nav_lecturer) {
             replaceFragment(new LecturerListFragment(), false);
         }
-        /*
-        if (id == R.id.nav_endlesslist) {
-            replaceFragment(new EndlessListFragment(), false);
-        }
-        */
         if (id == R.id.nav_mensa) {
             Intent intent = new Intent(this, MensaActivity.class);
             startActivity(intent);
@@ -131,20 +113,6 @@ public class NavigationDrawerActivity extends AppCompatActivity
         //intent.putExtra("id", position);
         intent.putExtra("lecturer", lecturer);
         startActivity(intent);
-    }
-
-    /**
-     * Interface callback method to show or dismiss the progressbar in the activity.
-     * @param b true or false to show or dismiss the progressbar
-     */
-    @Override
-    public void showProgressBar(final boolean b) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                progressBar.setVisibility(b ? View.VISIBLE : View.INVISIBLE);
-            }
-        });
     }
 
     @Override

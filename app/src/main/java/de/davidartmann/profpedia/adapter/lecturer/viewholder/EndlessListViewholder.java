@@ -1,14 +1,8 @@
-package de.davidartmann.profpedia.adapter.viewholder;
+package de.davidartmann.profpedia.adapter.lecturer.viewholder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
-import de.davidartmann.profpedia.R;
-import de.davidartmann.profpedia.fragment.EndlessListFragment;
 
 /**
  * Created by david on 09.01.16.

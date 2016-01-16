@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference
+        android:title="Mensa Tage"
+        android:inputType="numberDecimal"
+        android:defaultValue="2"
+        android:dialogTitle="Tage festlegen"
+        android:key="@string/pref_key_number_of_mensa_tabs" />
+</PreferenceScreen>

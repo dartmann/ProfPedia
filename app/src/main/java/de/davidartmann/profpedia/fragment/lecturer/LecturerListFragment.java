@@ -1,4 +1,4 @@
-package de.davidartmann.profpedia.fragment;
+package de.davidartmann.profpedia.fragment.lecturer;
 
 import android.content.Context;
 import android.content.res.Configuration;
@@ -17,7 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import de.davidartmann.profpedia.R;
-import de.davidartmann.profpedia.adapter.LecturerListAdapter;
+import de.davidartmann.profpedia.adapter.lecturer.LecturerListAdapter;
 import de.davidartmann.profpedia.model.Lecturer;
 
 /**
@@ -30,7 +30,6 @@ public class LecturerListFragment extends Fragment {
     private LecturerListAdapter mra;
     private IOnLecturerClicked iOnLecturerClicked;
     private IProgressBar iProgressBar;
-    private RecyclerView recyclerView;
 
     @Override
     public void onAttach(Context context) {
@@ -47,7 +46,7 @@ public class LecturerListFragment extends Fragment {
         setHasOptionsMenu(true);
         //LecturerData lecturerData = new LecturerData(view.getContext());
         //lecturers = lecturerData.getLecturers();
-        recyclerView =
+        RecyclerView recyclerView =
                 (RecyclerView) view.findViewById(R.id.fragment_lecturer_list_recyclerview);
         recyclerView.setHasFixedSize(true);
         StaggeredGridLayoutManager sglm;

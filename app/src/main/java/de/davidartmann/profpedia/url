@@ -1,4 +1,27 @@
-193.175.31.146:8080/fiwincoming/api/lecturers
-193.175.31.146:8080/fiwincoming/api/lecturers?size=100
-193.175.31.146:8080/fiwincoming/api/lecturers?size=10&offset=10
+//============
+// Mensa
+//============
+http://193.175.31.146:8080/fiwincoming/api/lecturers
+http://193.175.31.146:8080/fiwincoming/api/lecturers?size=100
+http://193.175.31.146:8080/fiwincoming/api/lecturers?size=10&offset=10
 es gibt relationstypen die mit prev, self, oder next auf die jeweiligen datensätze hinweisen
+
+//============
+// Mensa
+//============
+Die Auflistung der Mensen-IDs:
+- Mensateria Campus Nord: 54
+- Mensa Schweinfurt: 4
+- Mensa Röntgenring Würzburg: 8
+- Mensa Josef-Schneider-Straße Würzburg: 5
+- Mensa Aschaffenburg: 1
+- Mensa am Studentenhaus: 10
+- Mensa am Hubland Würzburg: 7
+- Feldkirchenstraße Bamberg: 3
+- Busse Würzburg: 9
+- Außtrage Bamberg: 2
+(Frankenstube hat geschlossen, wäre ID 6)
+
+Jeder dieser IDs ist dem Parameter „tx_thmensamenu_pi3[mensen]“ der API mitzugeben. Somit wäre der Aufruf für die Campus Nord Mensa:
+
+https://www.studentenwerk-wuerzburg.de/index.php?type=4249&tx_thmensamenu_pi3[controller]=Speiseplan&tx_thmensamenu_pi3[action]=showjson&tx_thmensamenu_pi3[mensen]=54

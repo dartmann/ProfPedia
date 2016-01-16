@@ -19,7 +19,7 @@ import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
 import de.davidartmann.profpedia.R;
-import de.davidartmann.profpedia.adapter.LecturerDetailAdapter;
+import de.davidartmann.profpedia.adapter.lecturer.LecturerDetailAdapter;
 import de.davidartmann.profpedia.model.Lecturer;
 
 public class LecturerDetailActivity extends AppCompatActivity {

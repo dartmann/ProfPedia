@@ -1,12 +1,11 @@
-package de.davidartmann.profpedia.adapter.viewholder.lecturer;
+package de.davidartmann.profpedia.adapter.lecturer.viewholder.lecturer;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import de.davidartmann.profpedia.R;
-import de.davidartmann.profpedia.adapter.viewholder.LecturerViewholder;
+import de.davidartmann.profpedia.adapter.lecturer.viewholder.LecturerViewholder;
 import de.davidartmann.profpedia.model.Lecturer;
 
 /**

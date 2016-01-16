@@ -12,11 +12,13 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Einstellungen</string>
     <string name="dozenten">Dozenten</string>
     <string name="endlose_liste">Endlose Liste</string>
     <string name="dozenten_netzwerk">Dozenten Netzwerk</string>
     <string name="mensa">Mensa</string>
+    <string name="anzahl_tage">Anzahl Tage</string>
+    <string name="waehle_mensa">Wähle Mensa</string>
     <string-array name="activity_mensa_tabtitles">
         <item>Montag</item>
         <item>Dienstag</item>
@@ -26,4 +28,42 @@
         <item>Samstag</item>
         <item>Sonntag</item>
     </string-array>
+    <string-array name="mensa_days_numeric">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+    </string-array>
+    <string-array name="mensa_names">
+        <item>Hubland Würzburg</item>
+        <item>Studentenhaus Würzburg</item>
+        <item>Campus Nord Würzburg</item>
+        <item>Röntgenring Würzburg</item>
+        <item>Josef-Schneider-Straße Würzburg</item>
+        <item>Burse Würzburg</item>
+        <item>Schweinfurt</item>
+        <item>Aschaffenburg</item>
+        <item>Feldkirchenstraße Bamberg</item>
+        <item>Austraße Bamberg</item>
+    </string-array>
+    <string name="pref_key_number_of_mensa_tabs">amount_mensa_days</string>
+    <string name="default_number_of_mensa_tabs">2</string>
+    <string name="pref_key_mensa_location_id">mensa_name_for_location</string>
+    <string name="default_mensa_location_id">1</string>
+
+    <string name="load_lecturers_base_url">http://193.175.31.146:8080/fiwincoming/api/lecturers?size=10</string>
+    <string name="load_mensa_base_url">https://www.studentenwerk-wuerzburg.de/index.php?type=4249&amp;tx_thmensamenu_pi3[controller]=Speiseplan&amp;tx_thmensamenu_pi3[action]=showjson&amp;tx_thmensamenu_pi3[mensen]=</string>
+    <string name="load_mensa_id_wuerzburg_campus_nord">54</string>
+    <string name="load_mensa_id_wuerzburg_roentgenring">8</string>
+    <string name="load_mensa_id_wuerzburg_josef_schneider_strasse">5</string>
+    <string name="load_mensa_id_wuerzburg_studentenhaus">10</string>
+    <string name="load_mensa_id_wuerzburg_hubland">7</string>
+    <string name="load_mensa_id_wuerzburg_burse">9</string>
+    <string name="load_mensa_id_schweinfurt">4</string>
+    <string name="load_mensa_id_aschaffenburg">1</string>
+    <string name="load_mensa_id_bamberg_feldkirchenstrasse">3</string>
+    <string name="load_mensa_id_bamberg_austrasse">2</string>
 </resources>

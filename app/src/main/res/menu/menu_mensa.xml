@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".activity.NavigationDrawerActivity">
+    <!--
     <item
         android:id="@+id/action_search"
         android:title="@string/search"
@@ -11,11 +13,26 @@
         app:actionViewClass="android.support.v7.widget.SearchView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-    <!--
+
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"
+        android:icon="@drawable/settings"
+        app:showAsAction="always" />
+        -->
+
+    <item
+        android:id="@+id/action_mensa_days"
+        android:orderInCategory="110"
+        android:title="@string/anzahl_tage"
+        android:icon="@drawable/calender"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_mensa_mensachooser"
+        android:orderInCategory="120"
+        android:title="@string/waehle_mensa"
+        android:icon="@drawable/location_marker"
         app:showAsAction="never" />
-    -->
 </menu>

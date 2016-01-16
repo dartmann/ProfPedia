@@ -1,4 +1,4 @@
-package de.davidartmann.profpedia.fragment;
+package de.davidartmann.profpedia.fragment.mensa;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,12 +12,12 @@ import de.davidartmann.profpedia.R;
 /**
  * Created by david on 11.01.16.
  */
-public class MensaFridayFragment extends Fragment {
+public class MensaWednesdayFragment extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_mensa_friday, container, false);
+        View view = inflater.inflate(R.layout.fragment_mensa_wednesday, container, false);
         return view;
     }
 }

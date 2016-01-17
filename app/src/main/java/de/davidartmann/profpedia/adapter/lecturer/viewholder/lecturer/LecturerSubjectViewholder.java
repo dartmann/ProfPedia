@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import de.davidartmann.profpedia.R;
-import de.davidartmann.profpedia.adapter.lecturer.viewholder.LecturerViewholder;
 import de.davidartmann.profpedia.model.Lecturer;
 
 /**

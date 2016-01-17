@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import de.davidartmann.profpedia.R;
 import de.davidartmann.profpedia.activity.LecturerDetailActivity;
-import de.davidartmann.profpedia.adapter.lecturer.viewholder.LecturerViewholder;
+import de.davidartmann.profpedia.adapter.lecturer.viewholder.lecturer.LecturerViewholder;
 import de.davidartmann.profpedia.adapter.lecturer.viewholder.lecturer.LecturerAdressViewholder;
 import de.davidartmann.profpedia.adapter.lecturer.viewholder.lecturer.LecturerContactViewholder;
 import de.davidartmann.profpedia.adapter.lecturer.viewholder.lecturer.LecturerSubjectViewholder;

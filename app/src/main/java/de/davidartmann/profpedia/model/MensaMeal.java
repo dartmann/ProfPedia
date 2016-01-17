@@ -15,6 +15,7 @@ public class MensaMeal {
     private String priceguest;
     private String foodtype;
     private String additivenumbers;
+    private String imageUrl;
 
     /**
      * @return name of food.
@@ -220,5 +221,13 @@ public class MensaMeal {
      */
     public void setPricebed(String pricebed) {
         this.pricebed = pricebed;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

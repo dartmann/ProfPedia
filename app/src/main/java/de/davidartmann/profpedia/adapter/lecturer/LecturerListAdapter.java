@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import de.davidartmann.profpedia.adapter.lecturer.viewholder.MainViewHolder;
+import de.davidartmann.profpedia.adapter.lecturer.viewholder.LecturerListViewHolder;
 import de.davidartmann.profpedia.async.LoadLecturerFromNetwork;
 import de.davidartmann.profpedia.fragment.lecturer.LecturerListFragment;
 import de.davidartmann.profpedia.model.Lecturer;
@@ -22,7 +22,7 @@ import de.davidartmann.profpedia.model.Lecturer;
  * Adapter for the {@link LecturerListFragment}'s {@link RecyclerView}.
  * Created by david on 25.12.15.
  */
-public class LecturerListAdapter extends RecyclerView.Adapter<MainViewHolder>
+public class LecturerListAdapter extends RecyclerView.Adapter<LecturerListViewHolder>
         implements LoadLecturerFromNetwork.IGetLecturerDataFromNetwork {
 
     private static final String TAG = LecturerListAdapter.class.getSimpleName();
@@ -54,19 +54,19 @@ public class LecturerListAdapter extends RecyclerView.Adapter<MainViewHolder>
         this.iOnLecturerClicked = iOnLecturerClicked;
         this.iProgressBar = iProgressBar;
         this.screenOrientation = screenOrientation;
-        //TODO: maybe network check and let info appear?
+        iProgressBar.showProgressBarForLecturerList(true);
         new LoadLecturerFromNetwork(this, context)
                 .execute(baseUrl);
     }
 
     @Override
-    public MainViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public LecturerListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(layout, parent, false);
-        return new MainViewHolder(view, context, iOnLecturerClicked, screenOrientation);
+        return new LecturerListViewHolder(view, context, iOnLecturerClicked, screenOrientation);
     }
 
     @Override
-    public void onBindViewHolder(MainViewHolder holder, int position) {
+    public void onBindViewHolder(LecturerListViewHolder holder, int position) {
         if (position >= getItemCount()-1) {
             if (!nextUrl.equals("")) {
                 loadMoreData();
@@ -100,6 +100,10 @@ public class LecturerListAdapter extends RecyclerView.Adapter<MainViewHolder>
         return filteredLecturers.size();
     }
 
+    /**
+     * The search implementation for the actionbar.
+     * @param query the incoming search string.
+     */
     public void filter(String query) {
         if (!query.isEmpty()) {
             for (Lecturer l : lecturers) {

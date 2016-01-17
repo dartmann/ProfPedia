@@ -21,7 +21,7 @@ import de.davidartmann.profpedia.model.Lecturer;
  * Viewholder class for the main activity.
  * Created by david on 25.12.15.
  */
-public class MainViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class LecturerListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     private ImageView imageView;
     private TextView textView;
@@ -30,9 +30,9 @@ public class MainViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     private int screenOrientation;
     private Lecturer lecturer;
 
-    public MainViewHolder(View itemView, Context context,
-                          LecturerListFragment.IOnLecturerClicked IOnLecturerClicked,
-                          int screenOrientation) {
+    public LecturerListViewHolder(View itemView, Context context,
+                                  LecturerListFragment.IOnLecturerClicked IOnLecturerClicked,
+                                  int screenOrientation) {
         super(itemView);
         itemView.setOnClickListener(this);
         this.context = context;

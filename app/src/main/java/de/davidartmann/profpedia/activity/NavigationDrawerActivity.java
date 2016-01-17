@@ -33,8 +33,8 @@ public class NavigationDrawerActivity extends AppCompatActivity
         setContentView(R.layout.activity_navigation_drawer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar_navigation_drawer_toolbar);
         progressBar = (ProgressBar) findViewById(R.id.app_bar_navigation_drawer_progressbar);
-        setSupportActionBar(toolbar);
         toolbar.setTitle(R.string.app_name);
+        setSupportActionBar(toolbar);
         //TODO: drawer find one time and reuse
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(

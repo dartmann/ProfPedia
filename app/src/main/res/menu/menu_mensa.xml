@@ -34,5 +34,5 @@
         android:orderInCategory="120"
         android:title="@string/waehle_mensa"
         android:icon="@drawable/location_marker"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
 </menu>

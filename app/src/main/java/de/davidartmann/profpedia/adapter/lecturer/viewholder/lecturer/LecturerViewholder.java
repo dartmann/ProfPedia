@@ -1,4 +1,4 @@
-package de.davidartmann.profpedia.adapter.lecturer.viewholder;
+package de.davidartmann.profpedia.adapter.lecturer.viewholder.lecturer;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

@@ -19,6 +19,7 @@
     <string name="mensa">Mensa</string>
     <string name="anzahl_tage">Anzahl Tage</string>
     <string name="waehle_mensa">Wähle Mensa</string>
+    <!-- ViewPager -->
     <string-array name="activity_mensa_tabtitles">
         <item>Montag</item>
         <item>Dienstag</item>
@@ -49,7 +50,7 @@
     <string name="default_number_of_mensa_tabs">2</string>
     <string name="pref_key_mensa_location_id">mensa_name_for_location</string>
     <string name="default_mensa_location_id">1</string>
-
+    <!-- API -->
     <string name="load_lecturers_base_url">http://193.175.31.146:8080/fiwincoming/api/lecturers?size=10</string>
     <string name="load_mensa_base_url">https://www.studentenwerk-wuerzburg.de/index.php?type=4249&amp;tx_thmensamenu_pi3[controller]=Speiseplan&amp;tx_thmensamenu_pi3[action]=showjson&amp;tx_thmensamenu_pi3[mensen]=</string>
     <string name="load_mensa_id_wuerzburg_campus_nord">54</string>
@@ -62,4 +63,84 @@
     <string name="load_mensa_id_aschaffenburg">1</string>
     <string name="load_mensa_id_bamberg_feldkirchenstrasse">3</string>
     <string name="load_mensa_id_bamberg_austrasse">2</string>
+    <!-- Mensa -->
+    <!-- Foodtypes -->
+    <string name="pig">Schwein</string>
+    <string name="chicken">Geflügel</string>
+    <string name="cow">Rind</string>
+    <string name="calf">Kalb</string>
+    <string name="fish">Fisch</string>
+    <string name="meatless">Fleischlos</string>
+    <string name="vegan">Vegan</string>
+    <string name="alkohol">Alkohol</string><!--also additive -->
+    <string name="ham">Vorderschinken</string>
+    <string name="lamb">Lamm</string>
+    <string name="wild">Wild</string>
+    <!-- Additives -->
+    <string name="A1">glutenhaltiges Getreide</string>
+    <string name="A2">Krebstiere</string>
+    <string name="A3">Eier</string>
+    <string name="A4">Fische</string>
+    <string name="A5">Erdnüsse</string>
+    <string name="A6">Soja</string>
+    <string name="A7">Milch (einschließlich Lactose)</string>
+    <string name="A8">Schalenfrüchte</string>
+    <string name="A9">Sellerie</string>
+    <string name="A10">Senf</string>
+    <string name="A11">Sesamsamen</string>
+    <string name="A12">Schwefeldioxid und Sulfite</string>
+    <!-- TODO: A13 = ? (not seen in menu, so unknown!) -->
+    <string name="A14">Weichtiere</string>
+    <string name="A15">Weizen</string>
+    <string name="A16">Roggen</string>
+    <string name="A17">Gerste</string>
+    <!-- TODO: A18 = ? (not seen in menu, so unknown!) -->
+    <string name="A19">Mandeln</string>
+    <string name="F">Fisch</string>
+    <string name="K">Knoblauch</string>
+    <string name="G">Geflügel</string>
+    <string name="R">Rind/Kalb</string>
+    <string name="S">Schwein</string>
+    <string name="Z1">Farbstoff</string>
+    <string name="Z2">konserviert</string>
+    <string name="Z3">Antioxidationsmittel</string>
+    <string name="Z4">Geschmacksverstärker</string>
+    <string name="Z5">geschwefelt</string>
+    <!-- TODO: all items between (Z6-8) were not found, maybe in future api results -->
+    <string name="Z9">Süßungsmittel</string>
+    <string name="Z10">kann Aktivität und Aufmerksamkeit beeinträchtigen</string>
+    <string name="N_A">N/A</string>
+    <string name="essensart">"Essensart: "</string>
+    <string name="Zusatzstoffe">"Zusatzstoffe: "</string>
+    <string-array name="additives">
+        <item>A1</item>
+        <item>A2</item>
+        <item>A3</item>
+        <item>A4</item>
+        <item>A5</item>
+        <item>A6</item>
+        <item>A7</item>
+        <item>A8</item>
+        <item>A9</item>
+        <item>A10</item>
+        <item>A11</item>
+        <item>A12</item>
+        <item>A14</item>
+        <item>A15</item>
+        <item>A16</item>
+        <item>A17</item>
+        <item>A19</item>
+        <item>F</item>
+        <item>K</item>
+        <item>G</item>
+        <item>S</item>
+        <item>Z1</item>
+        <item>Z2</item>
+        <item>Z3</item>
+        <item>Z4</item>
+        <item>Z5</item>
+        <item>Z9</item>
+        <item>Z10</item>
+    </string-array>
+    <string name="additive_dot">&#183;</string>
 </resources>

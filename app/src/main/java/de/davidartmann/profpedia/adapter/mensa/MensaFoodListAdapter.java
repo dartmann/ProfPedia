@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.davidartmann.profpedia.R;
+import de.davidartmann.profpedia.activity.contract.OnFoodClickListener;
 import de.davidartmann.profpedia.adapter.mensa.viewholder.MensaListViewHolder;
 import de.davidartmann.profpedia.async.LoadMensaFromNetwork;
 import de.davidartmann.profpedia.fragment.mensa.contract.IProgressBar;
@@ -29,32 +29,51 @@ import de.davidartmann.profpedia.utils.MensaAssetHelper;
  * Created by david on 17.01.16.
  */
 public class MensaFoodListAdapter extends RecyclerView.Adapter<MensaListViewHolder>
-        implements LoadMensaFromNetwork.IGetMensaDataFromNetwork {
+        implements LoadMensaFromNetwork.IGetMensaDataFromNetwork,
+            SharedPreferences.OnSharedPreferenceChangeListener{
 
-    private int layout;
     private Context context;
+    /**
+     * Data of the adapter.
+     */
     private List<MensaMeal> mensaMeals;
-    private SharedPreferences sharedPreferences;
+    /**
+     * Each fragment will tell the adapter for which day it stands.
+     */
     private int actualDayOfFragment;
+    /**
+     * The ProgressBar interface for telling activity about when to show and hide it.
+     */
     private IProgressBar iProgressBar;
+    /**
+     * The given layout for the appropriate fragment.
+     */
+    private int layout;
+    /**
+     * The interface for the click event of a food card in the viewholder.
+     */
+    private OnFoodClickListener onFoodClickListener;
 
     public MensaFoodListAdapter(int layout, Context context, int actualDayOfFragment,
-                                IProgressBar iProgressBar) {
+                                IProgressBar iProgressBar,
+                                OnFoodClickListener onFoodClickListener) {
         this.layout = layout;
         this.context = context;
         mensaMeals = new ArrayList<>();
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        iProgressBar.showProgressBar(true);
-        new LoadMensaFromNetwork(this).execute(context.getString(R.string.load_mensa_base_url)
-                + getIdOfActualMensaInPreferences());
         this.actualDayOfFragment = actualDayOfFragment;
         this.iProgressBar = iProgressBar;
+        this.onFoodClickListener = onFoodClickListener;
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+        //iProgressBar.showProgressBar(true);
+        new LoadMensaFromNetwork(this, iProgressBar).execute(context.getString(R.string.load_mensa_base_url)
+                + getIdOfActualMensaInPreferences(sharedPreferences));
     }
 
     @Override
     public MensaListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(layout, parent, false);
-        return new MensaListViewHolder(view, context);
+        return new MensaListViewHolder(view, context, onFoodClickListener);
     }
 
     @Override
@@ -73,13 +92,12 @@ public class MensaFoodListAdapter extends RecyclerView.Adapter<MensaListViewHold
         Long date = DateHelper.getSecondsByGivenWeekDay(actualDayOfFragment);
         for (MensaMeal mensaMeal : mensaMeals) {
             if (Long.valueOf(mensaMeal.getDate()).equals(date)) {
-                //Log.d("fetchMensaData", "hit date in api response");
                 filteredMeals.add(mensaMeal);
             }
         }
         this.mensaMeals = filteredMeals;
         notifyDataSetChanged();
-        iProgressBar.showProgressBar(false);
+        //iProgressBar.showProgressBar(false);
     }
 
     /**
@@ -87,7 +105,7 @@ public class MensaFoodListAdapter extends RecyclerView.Adapter<MensaListViewHold
      * Then check this name.
      * @return id of the actual mensa from string resources.
      */
-    public String getIdOfActualMensaInPreferences() {
+    public String getIdOfActualMensaInPreferences(SharedPreferences sharedPreferences) {
         String currentMensaName = sharedPreferences.getString(
                 context.getString(R.string.pref_key_mensa_location_id),
                 context.getResources().getStringArray(R.array.mensa_names)[0]);
@@ -105,5 +123,13 @@ public class MensaFoodListAdapter extends RecyclerView.Adapter<MensaListViewHold
             }
         }
         return "";
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if (key.equals(context.getString(R.string.pref_key_mensa_location_id))) {
+            new LoadMensaFromNetwork(this, iProgressBar).execute(context.getString(R.string.load_mensa_base_url)
+                    +getIdOfActualMensaInPreferences(sharedPreferences));
+        }
     }
 }

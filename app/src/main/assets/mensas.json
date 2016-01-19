@@ -1,41 +1,41 @@
 [{
   "name": "Hubland Würzburg",
   "id": "7",
-  "imgurl": "http://swerk.develth.com/wuerzburg/essen-trinken/mensen/gmi/viewImage/-a505c39b20/mensa.jpg"
+  "imgAssetName": "images/mensa_wuerzburg_hubland.jpg"
 }, {
   "name": "Studentenhaus Würzburg",
   "id": "10",
-  "imgurl": "http://swerk.develth.com/wuerzburg/essen-trinken/mensen/gmi/viewImage/-0d59df670a/mensa.jpg"
+  "imgAssetName": "images/mensa_wuerzburg_studentenhaus.jpg"
 }, {
   "name": "Campus Nord Würzburg",
   "id": "54",
-  "imgurl": "http://www.br.de/nachrichten/unterfranken/inhalt/mensateria-uni-wuerzburg-104~_v-img__16__9__xl_-d31c35f8186ebeb80b0cd843a7c267a0e0c81647.jpg?version=5a155"
+  "imgAssetName": "images/mensa_wuerzburg_campus_nord.jpg"
 }, {
   "name": "Röntgenring Würzburg",
   "id": "8",
-  "imgurl": "http://swerk.develth.com/wuerzburg/essen-trinken/mensen/gmi/viewImage/-5fae934add/mensa.jpg"
+  "imgAssetName": "images/mensa_wuerzburg_roentgenring.jpg"
 }, {
   "name": "Josef-Schneider-Straße Würzburg",
   "id": "5",
-  "imgurl": "http://swerk.develth.com/wuerzburg/essen-trinken/mensen/gmi/viewImage/-aa31c7428e/mensa.jpg"
+  "imgAssetName": "images/mensa_wuerzburg_josef_schneider.jpg"
 }, {
   "name": "Burse Würzburg",
   "id": "9",
-  "imgurl": "http://swerk.develth.com/wuerzburg/essen-trinken/mensen/gmi/viewImage/-653d1a218f/mensa.jpg"
+  "imgAssetName": "images/mensa_wuerzburg_burse.jpg"
 }, {
   "name": "Schweinfurt",
   "id": "4",
-  "imgurl": "http://swerk.develth.com/schweinfurt/essen-trinken/mensen/gmi/viewImage/-7509747f9c/mensa.jpg"
+  "imgAssetName": "images/mensa_schweinfurt.jpg"
 }, {
   "name": "Aschaffenburg",
   "id": "1",
-  "imgurl": "http://swerk.develth.com/aschaffenburg/essen-trinken/mensen/gmi/viewImage/-146611894d/mensa.jpg"
+  "imgAssetName": "images/mensa_aschaffenburg.jpg"
 }, {
   "name": "Feldkirchenstraße Bamberg",
   "id": "3",
-  "imgurl": "http://swerk.develth.com/bamberg/essen-trinken/mensen/gmi/viewImage/-d9dc64a619/mensa.jpg"
+  "imgAssetName": "images/mensa_bamberg_feldkirchenstrasse.jpg"
 }, {
   "name": "Austraße Bamberg",
   "id": "2",
-  "imgurl": "http://swerk.develth.com/bamberg/essen-trinken/mensen/gmi/viewImage/-ded06e0372/mensa.jpg"
+  "imgAssetName": "images/mensa_bamberg_austrasse.jpg"
 }]

@@ -1,6 +1,5 @@
 package de.davidartmann.profpedia.async;
 
-import android.content.Context;
 import android.os.AsyncTask;
 
 import com.owlike.genson.GenericType;
@@ -12,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import de.davidartmann.profpedia.fragment.lecturer.LecturerListFragment;
 import de.davidartmann.profpedia.model.Lecturer;
 
 /**
@@ -21,16 +21,18 @@ import de.davidartmann.profpedia.model.Lecturer;
 public class LoadLecturerFromNetwork extends AsyncTask<String, Void, List<Lecturer>> {
 
     private IGetLecturerDataFromNetwork iGetLecturerDataFromNetwork;
-    private Context context;
     private HttpURLConnection httpURLConnection;
+    private LecturerListFragment.IProgressBar iProgressBar;
 
-    public LoadLecturerFromNetwork(IGetLecturerDataFromNetwork i, Context c) {
+    public LoadLecturerFromNetwork(IGetLecturerDataFromNetwork i,
+                                   LecturerListFragment.IProgressBar iProgressBar) {
         this.iGetLecturerDataFromNetwork = i;
-        this.context = c;
+        this.iProgressBar = iProgressBar;
     }
 
     @Override
     protected List<Lecturer> doInBackground(String... strings) {
+        iProgressBar.showProgressBarForLecturerList(true);
         httpURLConnection = null;
         try {
             URL url = new URL(strings[0]);
@@ -60,6 +62,7 @@ public class LoadLecturerFromNetwork extends AsyncTask<String, Void, List<Lectur
         int totalNumberOfDataInBackend =
                 getTotalNumberOfDataSetsInBackend(httpURLConnection.getHeaderFields());
         iGetLecturerDataFromNetwork.fetchLecturers(lecturers, totalNumberOfDataInBackend, nextUrl);
+        iProgressBar.showProgressBarForLecturerList(false);
     }
 
     private String checkIfMoreDataInBackend(Map<String, List<String>> headerFields) {

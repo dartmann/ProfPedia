@@ -61,7 +61,7 @@ public class MensaViewPagerAdapter extends FragmentStatePagerAdapter {
         weekFragments.add(new MensaThursdayFragment());
         weekFragments.add(new MensaFridayFragment());
         return weekFragments.get(
-                getReturnPositionHelper(positionOfFragmentInTabs, dayOfWeek, weekFragments.size()));
+                getReturnPositionByHelper(positionOfFragmentInTabs, dayOfWeek, weekFragments.size()));
     }
 
     @Override
@@ -75,10 +75,10 @@ public class MensaViewPagerAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
         Calendar calendar = Calendar.getInstance();
         int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
-        return titles.get(getReturnPositionHelper(position, dayOfWeek, titles.size()));
+        return titles.get(getReturnPositionByHelper(position, dayOfWeek, titles.size()));
     }
 
-    private int getReturnPositionHelper(int position, int dayOfWeek, int size) {
+    private int getReturnPositionByHelper(int position, int dayOfWeek, int size) {
         int posToReturn;
         if (dayOfWeek != Calendar.SUNDAY) {
             posToReturn = ((position + dayOfWeek) - 2) % size;

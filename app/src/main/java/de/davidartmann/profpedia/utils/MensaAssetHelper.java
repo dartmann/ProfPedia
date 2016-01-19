@@ -2,6 +2,9 @@ package de.davidartmann.profpedia.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
+import android.widget.ImageView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -9,6 +12,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.TimeZone;
 
 import de.davidartmann.profpedia.R;
 
@@ -18,6 +22,8 @@ import de.davidartmann.profpedia.R;
  * Created by david on 17.01.16.
  */
 public class MensaAssetHelper {
+
+    private static final String TAG = MensaAssetHelper.class.getSimpleName();
 
     /**
      * Loads the asset json data and return {@link JSONArray}.
@@ -34,6 +40,7 @@ public class MensaAssetHelper {
             inputStream.close();
             jsonArray = new JSONArray(new String(bytes, "UTF-8"));
         } catch (IOException | JSONException e) {
+            Log.e(TAG, "something went wrong while reading assets mensa.json");
             e.printStackTrace();
         }
         return jsonArray;
@@ -54,9 +61,21 @@ public class MensaAssetHelper {
                     }
                 }
             } catch (JSONException e) {
+                Log.e(TAG, "something went wrong while parsing json from mensas.json");
                 e.printStackTrace();
             }
         }
         return jsonObject;
+    }
+
+    public static void setImageByPreferedMensa(Context context, SharedPreferences sharedPreferences,
+                                               ImageView imageView) {
+        JSONObject jsonObject = getPreferedMensaJSONObject(context, sharedPreferences);
+        try {
+            InputStream is = context.getAssets().open(jsonObject.getString("imgAssetName"));
+            imageView.setImageDrawable(Drawable.createFromStream(is, null));
+        } catch (IOException | JSONException e) {
+            e.printStackTrace();
+        }
     }
 }

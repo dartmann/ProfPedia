@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import java.util.Calendar;
 
 import de.davidartmann.profpedia.R;
+import de.davidartmann.profpedia.activity.contract.OnFoodClickListener;
 import de.davidartmann.profpedia.adapter.mensa.MensaFoodListAdapter;
 import de.davidartmann.profpedia.fragment.mensa.contract.IProgressBar;
 
@@ -23,11 +24,13 @@ import de.davidartmann.profpedia.fragment.mensa.contract.IProgressBar;
 public class MensaTuesdayFragment extends Fragment {
 
     private IProgressBar iProgressBar;
+    private OnFoodClickListener onFoodClickListener;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         iProgressBar = (IProgressBar) context;
+        onFoodClickListener = (OnFoodClickListener) context;
     }
 
     @Nullable
@@ -40,7 +43,7 @@ public class MensaTuesdayFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         MensaFoodListAdapter mensaFoodListAdapter =
                 new MensaFoodListAdapter(R.layout.cardview_mensa_meal, getContext(),
-                        Calendar.TUESDAY, iProgressBar);
+                        Calendar.TUESDAY, iProgressBar, onFoodClickListener);
         recyclerView.setAdapter(mensaFoodListAdapter);
         return view;
     }

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import de.davidartmann.profpedia.R;
 import de.davidartmann.profpedia.adapter.lecturer.viewholder.LecturerListViewHolder;
 import de.davidartmann.profpedia.async.LoadLecturerFromNetwork;
 import de.davidartmann.profpedia.fragment.lecturer.LecturerListFragment;
@@ -37,9 +38,6 @@ public class LecturerListAdapter extends RecyclerView.Adapter<LecturerListViewHo
     private int numberOfBackendData;
     private String nextUrl;
 
-    private String baseUrl = "http://193.175.31.146:8080/fiwincoming/api/lecturers?size=10";
-
-
     public LecturerListAdapter(int layout,
                                Context context,
                                LecturerListFragment.IOnLecturerClicked iOnLecturerClicked,
@@ -54,9 +52,9 @@ public class LecturerListAdapter extends RecyclerView.Adapter<LecturerListViewHo
         this.iOnLecturerClicked = iOnLecturerClicked;
         this.iProgressBar = iProgressBar;
         this.screenOrientation = screenOrientation;
-        iProgressBar.showProgressBarForLecturerList(true);
-        new LoadLecturerFromNetwork(this, context)
-                .execute(baseUrl);
+        //iProgressBar.showProgressBarForLecturerList(true);
+        new LoadLecturerFromNetwork(this, iProgressBar)
+                .execute(context.getString(R.string.load_lecturers_base_url));//baseUrl);
     }
 
     @Override
@@ -79,7 +77,7 @@ public class LecturerListAdapter extends RecyclerView.Adapter<LecturerListViewHo
         new Thread() {
             @Override
             public void run() {
-                iProgressBar.showProgressBarForLecturerList(true);
+                //iProgressBar.showProgressBarForLecturerList(true);
                 /**
                  * just for showcase, because with wifi it loads so fast
                  * we do not see the progressbar
@@ -90,7 +88,7 @@ public class LecturerListAdapter extends RecyclerView.Adapter<LecturerListViewHo
                     e.printStackTrace();
                 }
                  */
-                new LoadLecturerFromNetwork(LecturerListAdapter.this, context).execute(nextUrl);
+                new LoadLecturerFromNetwork(LecturerListAdapter.this, iProgressBar).execute(nextUrl);
             }
         }.start();
     }
@@ -141,7 +139,7 @@ public class LecturerListAdapter extends RecyclerView.Adapter<LecturerListViewHo
             filteredLecturers = new ArrayList<>(this.lecturers); //(List<Lecturer>) ((ArrayList<Lecturer>) this.lecturers).clone();
             this.nextUrl = nextUrl;
             this.numberOfBackendData = numberOfBackendData;
-            iProgressBar.showProgressBarForLecturerList(false);
+            //iProgressBar.showProgressBarForLecturerList(false);
             /**
              * Because we are in the callback method of the IGetLecturerDataFromNetwork interface,
              * which is called inside the async task, we do not need the handler here.
@@ -156,8 +154,8 @@ public class LecturerListAdapter extends RecyclerView.Adapter<LecturerListViewHo
                     .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            new LoadLecturerFromNetwork(LecturerListAdapter.this, context)
-                                    .execute(baseUrl);
+                            new LoadLecturerFromNetwork(LecturerListAdapter.this, iProgressBar)
+                                    .execute(context.getString(R.string.load_lecturers_base_url));
                         }
                     })
                     .setNegativeButton("Nein", new DialogInterface.OnClickListener() {

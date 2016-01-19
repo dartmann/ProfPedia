@@ -10,6 +10,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
+import de.davidartmann.profpedia.fragment.mensa.contract.IProgressBar;
 import de.davidartmann.profpedia.model.Lecturer;
 import de.davidartmann.profpedia.model.MensaMeal;
 
@@ -20,13 +21,17 @@ import de.davidartmann.profpedia.model.MensaMeal;
 public class LoadMensaFromNetwork extends AsyncTask<String, Integer, List<MensaMeal>> {
 
     private IGetMensaDataFromNetwork iGetMensaDataFromNetwork;
+    private IProgressBar iProgressBar;
 
-    public LoadMensaFromNetwork(IGetMensaDataFromNetwork iGetMensaDataFromNetwork) {
+    public LoadMensaFromNetwork(IGetMensaDataFromNetwork iGetMensaDataFromNetwork,
+                                IProgressBar iProgressBar) {
         this.iGetMensaDataFromNetwork = iGetMensaDataFromNetwork;
+        this.iProgressBar = iProgressBar;
     }
 
     @Override
     protected List<MensaMeal> doInBackground(String... params) {
+        iProgressBar.showProgressBar(true);
         HttpURLConnection httpURLConnection = null;
         URL url = null;
         try {
@@ -45,6 +50,7 @@ public class LoadMensaFromNetwork extends AsyncTask<String, Integer, List<MensaM
     protected void onPostExecute(List<MensaMeal> mensaMeals) {
         super.onPostExecute(mensaMeals);
         iGetMensaDataFromNetwork.fetchMensaData(mensaMeals);
+        iProgressBar.showProgressBar(false);
     }
 
     public interface IGetMensaDataFromNetwork {

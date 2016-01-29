@@ -88,6 +88,7 @@ public class LecturerListAdapter extends RecyclerView.Adapter<LecturerListViewHo
                     e.printStackTrace();
                 }
                  */
+                //TODO: this is already an extra userthread, so no wrapping needed
                 new LoadLecturerFromNetwork(LecturerListAdapter.this, iProgressBar).execute(nextUrl);
             }
         }.start();
@@ -145,7 +146,6 @@ public class LecturerListAdapter extends RecyclerView.Adapter<LecturerListViewHo
              * which is called inside the async task, we do not need the handler here.
              */
             notifyDataSetChanged();
-            //informAdapter();
         } else {
             Log.w(TAG, "response empty");
             AlertDialog.Builder builder = new AlertDialog.Builder(context)

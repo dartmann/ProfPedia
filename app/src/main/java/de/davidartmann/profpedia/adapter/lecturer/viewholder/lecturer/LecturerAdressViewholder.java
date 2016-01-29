@@ -3,6 +3,7 @@ package de.davidartmann.profpedia.adapter.lecturer.viewholder.lecturer;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,10 +13,10 @@ import de.davidartmann.profpedia.R;
 import de.davidartmann.profpedia.model.Lecturer;
 
 /**
- * ViewHolder for the address cardview of a lecturer. Extends the {@link LecturerViewholder}.
+ * ViewHolder for the address cardview of a lecturer. Extends the {@link android.support.v7.widget.RecyclerView.ViewHolder}.
  * Created by david on 30.12.15.
  */
-public class LecturerAdressViewholder extends LecturerViewholder implements View.OnClickListener {
+public class LecturerAdressViewholder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     private static final String TAG = LecturerAdressViewholder.class.getSimpleName();
 
@@ -26,7 +27,7 @@ public class LecturerAdressViewholder extends LecturerViewholder implements View
     private Lecturer lecturer;
 
     public LecturerAdressViewholder(View itemView, Context context) {
-        super(itemView, context);
+        super(itemView/*, context*/);
         this.context = context;
         textViewHeaderDescription = (TextView) itemView
                 .findViewById(

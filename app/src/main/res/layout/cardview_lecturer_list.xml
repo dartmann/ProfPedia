@@ -17,6 +17,7 @@
             android:contentDescription="@string/cardview_contentdescription"
             android:id="@+id/recyclerview_main_cardview_imageview"
             android:scaleType="centerCrop"
+            android:transitionName="transLecturerImage"
             android:layout_width="match_parent"
             android:layout_height="180dp" />
         <TextView

@@ -3,8 +3,11 @@ package de.davidartmann.profpedia.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.util.Pair;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -12,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import de.davidartmann.profpedia.R;
@@ -108,11 +112,15 @@ public class NavigationDrawerActivity extends AppCompatActivity
      * @param lecturer the lecturer which was clicked.
      */
     @Override
-    public void onLecturerClick(Lecturer lecturer) {
+    public void onLecturerClick(Lecturer lecturer, ImageView imageView) {
+        Pair<View, String> imagePair = Pair.create((View) imageView, "transLecturerImage");
         Intent intent = new Intent(this, LecturerDetailActivity.class);
         //intent.putExtra("id", position);
         intent.putExtra("lecturer", lecturer);
-        startActivity(intent);
+        ActivityOptionsCompat activityOptionsCompat =
+                ActivityOptionsCompat.makeSceneTransitionAnimation(this, imagePair);
+        ActivityCompat.startActivity(this, intent, activityOptionsCompat.toBundle());
+        //startActivity(intent);
     }
 
     @Override

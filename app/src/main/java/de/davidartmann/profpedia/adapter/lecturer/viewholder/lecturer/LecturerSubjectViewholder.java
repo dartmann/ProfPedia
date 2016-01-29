@@ -1,6 +1,7 @@
 package de.davidartmann.profpedia.adapter.lecturer.viewholder.lecturer;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
@@ -11,7 +12,7 @@ import de.davidartmann.profpedia.model.Lecturer;
  * Viewholder for the subject data of a lecturer.
  * Created by david on 01.01.16.
  */
-public class LecturerSubjectViewholder extends LecturerViewholder implements View.OnClickListener {
+public class LecturerSubjectViewholder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     private static final String TAG = LecturerSubjectViewholder.class.getSimpleName();
 
@@ -21,7 +22,7 @@ public class LecturerSubjectViewholder extends LecturerViewholder implements Vie
     private Lecturer lecturer;
 
     public LecturerSubjectViewholder(View itemView, Context context) {
-        super(itemView, context);
+        super(itemView/*, context*/);
         itemView.setOnClickListener(this);
         this.context = context;
         textViewHeaderDescription = (TextView) itemView.findViewById(

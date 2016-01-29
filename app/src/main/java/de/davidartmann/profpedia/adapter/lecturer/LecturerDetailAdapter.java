@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 
 import de.davidartmann.profpedia.R;
 import de.davidartmann.profpedia.activity.LecturerDetailActivity;
-import de.davidartmann.profpedia.adapter.lecturer.viewholder.lecturer.LecturerViewholder;
 import de.davidartmann.profpedia.adapter.lecturer.viewholder.lecturer.LecturerAdressViewholder;
 import de.davidartmann.profpedia.adapter.lecturer.viewholder.lecturer.LecturerContactViewholder;
 import de.davidartmann.profpedia.adapter.lecturer.viewholder.lecturer.LecturerSubjectViewholder;
@@ -18,7 +17,7 @@ import de.davidartmann.profpedia.model.Lecturer;
  * Adapter class for the {@link LecturerDetailActivity}'s {@link RecyclerView}.
  * Created by david on 30.12.15.
  */
-public class LecturerDetailAdapter extends RecyclerView.Adapter<LecturerViewholder> {
+public class LecturerDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final String TAG = LecturerDetailAdapter.class.getSimpleName();
 
@@ -31,7 +30,7 @@ public class LecturerDetailAdapter extends RecyclerView.Adapter<LecturerViewhold
     }
 
     @Override
-    public LecturerViewholder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
             case 0:
                 //Log.i(TAG, "LecturerAdressViewholder");
@@ -57,7 +56,7 @@ public class LecturerDetailAdapter extends RecyclerView.Adapter<LecturerViewhold
     }
 
     @Override
-    public void onBindViewHolder(LecturerViewholder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         switch (position) {
             case 0:
                 ((LecturerAdressViewholder) holder).assignData(lecturer);

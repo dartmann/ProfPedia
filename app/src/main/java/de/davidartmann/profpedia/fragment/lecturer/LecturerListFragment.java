@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import de.davidartmann.profpedia.R;
 import de.davidartmann.profpedia.adapter.lecturer.LecturerListAdapter;
@@ -89,7 +90,7 @@ public class LecturerListFragment extends Fragment {
      * Interface for the clickhandling contract between activity and (fragment->adapter->viewholder)
      */
     public interface IOnLecturerClicked {
-        void onLecturerClick(Lecturer lecturer);
+        void onLecturerClick(Lecturer lecturer, ImageView imageView);
     }
 
     /**

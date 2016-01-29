@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,7 +19,7 @@ import de.davidartmann.profpedia.model.Lecturer;
  * Viewholder for the contact data of the lecturer.
  * Created by david on 01.01.16.
  */
-public class LecturerContactViewholder extends LecturerViewholder
+public class LecturerContactViewholder extends RecyclerView.ViewHolder
         implements View.OnClickListener {
 
     private static final String TAG = LecturerContactViewholder.class.getSimpleName();
@@ -30,7 +31,7 @@ public class LecturerContactViewholder extends LecturerViewholder
     private Lecturer lecturer;
 
     public LecturerContactViewholder(View itemView, Context context) {
-        super(itemView, context);
+        super(itemView/*, context*/);
         this.context = context;
         itemView.setOnClickListener(this);
         textViewHeaderDescription = (TextView) itemView.
@@ -63,7 +64,7 @@ public class LecturerContactViewholder extends LecturerViewholder
     public void onClick(View v) {
         if (lecturer != null) {
             if (context != null) {
-                Intent intent = null;
+                Intent intent;
                 int id = v.getId();
                 if (id == R.id.recyclerview_lecturer_contact_cardview_imageview_email
                         || id == R.id.recyclerview_lecturer_contact_cardview_textview_email) {

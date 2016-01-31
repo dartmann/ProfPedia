@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import de.davidartmann.profpedia.R;
+import de.davidartmann.profpedia.activity.LecturerDetailActivity;
 import de.davidartmann.profpedia.model.Lecturer;
 
 /**
@@ -29,8 +31,14 @@ public class LecturerContactViewholder extends RecyclerView.ViewHolder
     private TextView textViewEmail, textViewPhone;
     private Context context;
     private Lecturer lecturer;
+    private FloatingActionButton fabCall;
+    private FloatingActionButton fabEmail;
+    private FloatingActionButton fabLike;
 
-    public LecturerContactViewholder(View itemView, Context context) {
+    public LecturerContactViewholder(View itemView, Context context,
+                                     FloatingActionButton fabCall,
+                                     FloatingActionButton fabEmail,
+                                     FloatingActionButton fabLike) {
         super(itemView/*, context*/);
         this.context = context;
         itemView.setOnClickListener(this);
@@ -49,15 +57,43 @@ public class LecturerContactViewholder extends RecyclerView.ViewHolder
         textViewPhone.setOnClickListener(this);
         imageViewEmail.setOnClickListener(this);
         textViewEmail.setOnClickListener(this);
+        this.fabCall = fabCall;
+        this.fabEmail = fabEmail;
+        this.fabLike = fabLike;
     }
 
-    public void assignData(Lecturer lecturer) {
+    public void assignData(final Lecturer lecturer) {
         this.lecturer = lecturer;
         textViewHeaderDescription.setText(R.string.kontakt);
         imageViewEmail.setImageDrawable(context.getDrawable(R.drawable.email));
         textViewEmail.setText(lecturer.getEmail());
         imageViewPhone.setImageDrawable(context.getDrawable(R.drawable.call));
         textViewPhone.setText(lecturer.getPhone());
+
+        fabCall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_CALL,
+                        Uri.parse("tel:" + lecturer.getPhone().trim()));
+                if (ActivityCompat
+                        .checkSelfPermission(context, Manifest.permission.CALL_PHONE)
+                        != PackageManager.PERMISSION_GRANTED) {
+                    return;
+                }
+                context.startActivity(Intent.createChooser(intent, "Anrufen mit"));
+            }
+        });
+        fabEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_EMAIL, lecturer.getEmail());
+                intent.putExtra(Intent.EXTRA_SUBJECT, "");
+                intent.putExtra(Intent.EXTRA_TEXT, "");
+                context.startActivity(Intent.createChooser(intent, "Email versenden mit"));
+            }
+        });
     }
 
     @Override

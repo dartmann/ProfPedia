@@ -115,8 +115,8 @@ public class NavigationDrawerActivity extends AppCompatActivity
     public void onLecturerClick(Lecturer lecturer, ImageView imageView) {
         Pair<View, String> imagePair = Pair.create((View) imageView, "transLecturerImage");
         Intent intent = new Intent(this, LecturerDetailActivity.class);
-        //intent.putExtra("id", position);
         intent.putExtra("lecturer", lecturer);
+        //noinspection unchecked
         ActivityOptionsCompat activityOptionsCompat =
                 ActivityOptionsCompat.makeSceneTransitionAnimation(this, imagePair);
         ActivityCompat.startActivity(this, intent, activityOptionsCompat.toBundle());

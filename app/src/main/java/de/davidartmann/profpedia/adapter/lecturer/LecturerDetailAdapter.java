@@ -1,6 +1,7 @@
 package de.davidartmann.profpedia.adapter.lecturer;
 
 import android.content.Context;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,27 +24,33 @@ public class LecturerDetailAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     private Lecturer lecturer;
     private Context context;
+    private FloatingActionButton fabCall;
+    private FloatingActionButton fabEmail;
+    private FloatingActionButton fabLike;
 
-    public LecturerDetailAdapter(Lecturer lecturer, Context context) {
+    public LecturerDetailAdapter(Lecturer lecturer, Context context,
+                                 FloatingActionButton fabCall,
+                                 FloatingActionButton fabEmail,
+                                 FloatingActionButton fabLike) {
         this.lecturer = lecturer;
         this.context = context;
+        this.fabCall = fabCall;
+        this.fabEmail = fabEmail;
+        this.fabLike = fabLike;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
             case 0:
-                //Log.i(TAG, "LecturerAdressViewholder");
                 return new LecturerAdressViewholder(LayoutInflater.from(context)
                         .inflate(R.layout.cardview_lecturer_address,
                                 parent, false), context);
             case 1:
-                //Log.i(TAG, "LecturerContactViewholder");
                 return new LecturerContactViewholder(LayoutInflater.from(context)
                         .inflate(R.layout.cardview_lecturer_contact,
-                                parent, false), context);
+                                parent, false), context, fabCall, fabEmail, fabLike);
             case 2:
-                //Log.i(TAG, "LecturerSubjectViewholder");
                 return new LecturerSubjectViewholder(LayoutInflater.from(context)
                         .inflate(R.layout.cardview_lecturer_subject,
                                 parent, false), context);

@@ -1,16 +1,12 @@
 package de.davidartmann.profpedia.activity;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,8 +18,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.BounceInterpolator;
-import android.view.animation.OvershootInterpolator;
-import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
@@ -31,7 +25,6 @@ import com.squareup.picasso.Target;
 
 import de.davidartmann.profpedia.R;
 import de.davidartmann.profpedia.adapter.lecturer.LecturerDetailAdapter;
-import de.davidartmann.profpedia.adapter.lecturer.viewholder.lecturer.LecturerContactViewholder;
 import de.davidartmann.profpedia.model.Lecturer;
 
 public class LecturerDetailActivity extends AppCompatActivity {
@@ -130,6 +123,7 @@ public class LecturerDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (!fabLikeClicked) {
                     fabLikeClicked = true;
+                    fabLike.setImageDrawable(getDrawable(R.drawable.ic_close_white_24px));
                     fabEmail.setVisibility(View.VISIBLE); //why is fabCall also visible, although it has not been set here?
                     fabEmail.animate()
                             .setInterpolator(new AccelerateDecelerateInterpolator())
@@ -161,6 +155,7 @@ public class LecturerDetailActivity extends AppCompatActivity {
                             });
                 } else {
                     fabLikeClicked = false;
+                    fabLike.setImageDrawable(getDrawable(R.drawable.ic_more_horiz_white_24px));
                     fabCall.animate()
                             .setInterpolator(new AccelerateDecelerateInterpolator())
                             .translationXBy(350.0f)

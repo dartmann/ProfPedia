@@ -57,6 +57,14 @@ public class LecturerListFragment extends Fragment {
             sglm = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
         }
         recyclerView.setLayoutManager(sglm);
+        /**
+         * did not work -> check this one: http://stackoverflow.com/questions/27816217/how-to-save-recyclerview-scroll-position-with-recyclerview-state-or-no
+         *
+        Log.d("POSITION RECEIVED", getActivity().getIntent()
+                .getIntExtra("position", RecyclerView.SCROLLBAR_POSITION_DEFAULT)+"");
+        sglm.scrollToPosition(getActivity().getIntent()
+                .getIntExtra("position", RecyclerView.SCROLLBAR_POSITION_DEFAULT));
+                */
         mra = new LecturerListAdapter(R.layout.cardview_lecturer_list,
                 /*lecturers,*/ view.getContext(),
                 iOnLecturerClicked,
@@ -80,7 +88,6 @@ public class LecturerListFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String newText) {
                 mra.filter(newText);
-                //recyclerView.scrollToPosition(0);
                 return true;
             }
         });
@@ -90,7 +97,7 @@ public class LecturerListFragment extends Fragment {
      * Interface for the clickhandling contract between activity and (fragment->adapter->viewholder)
      */
     public interface IOnLecturerClicked {
-        void onLecturerClick(Lecturer lecturer, ImageView imageView);
+        void onLecturerClick(Lecturer lecturer, ImageView imageView, int adapterPosition);
     }
 
     /**

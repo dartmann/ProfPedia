@@ -1,5 +1,6 @@
 package de.davidartmann.profpedia.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -7,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +17,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.BounceInterpolator;
@@ -123,8 +126,7 @@ public class LecturerDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (!fabLikeClicked) {
                     fabLikeClicked = true;
-                    fabLike.setImageDrawable(getDrawable(R.drawable.ic_close_white_24px));
-                    fabEmail.setVisibility(View.VISIBLE); //why is fabCall also visible, although it has not been set here?
+                    //fabEmail.setVisibility(View.VISIBLE); //why is fabCall also visible, although it has not been set here?
                     fabEmail.animate()
                             .setInterpolator(new AccelerateDecelerateInterpolator())
                             .scaleX(0.75f).scaleY(0.75f)
@@ -134,6 +136,7 @@ public class LecturerDetailActivity extends AppCompatActivity {
                     fabCall.animate()
                             .setInterpolator(new BounceInterpolator())
                             .scaleX(0.875f).scaleY(0.875f);
+                    fabLike.setImageDrawable(getDrawable(R.drawable.ic_more_horiz_two_white_24px));
                     fabLike.animate()
                             .setInterpolator(new BounceInterpolator())
                             .setDuration(500)
@@ -141,6 +144,7 @@ public class LecturerDetailActivity extends AppCompatActivity {
                             .withEndAction(new Runnable() {
                                 @Override
                                 public void run() {
+                                    fabLike.setImageDrawable(getDrawable(R.drawable.ic_more_horiz_one_white_24px));
                                     fabCall.animate()
                                             .setInterpolator(new AccelerateDecelerateInterpolator())
                                             .scaleX(0.75f).scaleY(0.75f)
@@ -155,18 +159,19 @@ public class LecturerDetailActivity extends AppCompatActivity {
                             });
                 } else {
                     fabLikeClicked = false;
-                    fabLike.setImageDrawable(getDrawable(R.drawable.ic_more_horiz_white_24px));
+                    //fabLike.setImageDrawable(getDrawable(R.drawable.ic_more_horiz_one_white_24px));
                     fabCall.animate()
                             .setInterpolator(new AccelerateDecelerateInterpolator())
                             .translationXBy(350.0f)
                             .rotation(360.0f)
-                            .setDuration(400)
+                            .setDuration(300)
                             .withEndAction(new Runnable() {
                                 @Override
                                 public void run() {
+                                    fabLike.setImageDrawable(getDrawable(R.drawable.ic_more_horiz_two_white_24px));
                                     fabLike.animate()
                                             .setInterpolator(new BounceInterpolator())
-                                            .setDuration(400)
+                                            .setDuration(300)
                                             .scaleX(0.875f).scaleY(0.875f)
                                             .withEndAction(new Runnable() {
                                         @Override
@@ -175,13 +180,14 @@ public class LecturerDetailActivity extends AppCompatActivity {
                                                     .setInterpolator(new AccelerateDecelerateInterpolator())
                                                     .translationXBy(175.0f)
                                                     .rotation(360.0f)
-                                                    .setDuration(400)
+                                                    .setDuration(300)
                                                     .withEndAction(new Runnable() {
                                                         @Override
                                                         public void run() {
+                                                            fabLike.setImageDrawable(getDrawable(R.drawable.ic_more_horiz_three_white_24px));
                                                             fabLike.animate()
                                                                     .setInterpolator(new BounceInterpolator())
-                                                                    .setDuration(400)
+                                                                    .setDuration(300)
                                                                     .scaleX(1.0f).scaleY(1.0f)
                                                                     .withEndAction(new Runnable() {
                                                                 @Override
@@ -210,25 +216,25 @@ public class LecturerDetailActivity extends AppCompatActivity {
                     fabLike.setScaleX(0.75f);
                     fabLike.setScaleY(0.75f);
                 }
-                /*
-                if (!(appBarLayout.getHeight() / 2 < -verticalOffset)) {
-                    //fab.setVisibility(View.VISIBLE);
-                    if (fabLikeClicked) {
-                        fabCall.setScaleX(0.75f);
-                        fabCall.setScaleY(0.75f);
-                        fabEmail.setScaleX(0.75f);
-                        fabEmail.setScaleY(0.75f);
-                        fabLike.setScaleX(0.75f);
-                        fabLike.setScaleY(0.75f);
-                    } else {
-                        Log.d("FABLIKE", "not clicked");
-                    }
-                } else {
-                    Log.d("SIZE", "not in area");
-                }
-                */
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                //NavUtils.navigateUpFromSameTask(this);
+                /*
+                Intent intent = new Intent(this, NavigationDrawerActivity.class);
+                intent.putExtra("position", getIntent()
+                        .getIntExtra("position", RecyclerView.NO_POSITION));
+                        */
+                onBackPressed();
+                //startActivity(intent);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private int getScreenOrientation() {

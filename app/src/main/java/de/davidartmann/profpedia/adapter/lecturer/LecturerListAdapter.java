@@ -54,7 +54,7 @@ public class LecturerListAdapter extends RecyclerView.Adapter<LecturerListViewHo
         this.screenOrientation = screenOrientation;
         //iProgressBar.showProgressBarForLecturerList(true);
         new LoadLecturerFromNetwork(this, iProgressBar)
-                .execute(context.getString(R.string.load_lecturers_base_url));//baseUrl);
+                .execute(context.getString(R.string.load_lecturers_base_url));
     }
 
     @Override

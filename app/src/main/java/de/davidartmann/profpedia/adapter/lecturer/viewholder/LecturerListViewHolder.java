@@ -70,6 +70,6 @@ public class LecturerListViewHolder extends RecyclerView.ViewHolder implements V
     @Override
     public void onClick(View v) {
         //IOnLecturerClicked.onLecturerClick(getAdapterPosition());
-        IOnLecturerClicked.onLecturerClick(lecturer, imageView);
+        IOnLecturerClicked.onLecturerClick(lecturer, imageView, getAdapterPosition());
     }
 }

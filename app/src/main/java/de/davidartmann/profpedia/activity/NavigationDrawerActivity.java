@@ -55,12 +55,6 @@ public class NavigationDrawerActivity extends AppCompatActivity
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        //if there is sth. to save, do it here
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -112,10 +106,11 @@ public class NavigationDrawerActivity extends AppCompatActivity
      * @param lecturer the lecturer which was clicked.
      */
     @Override
-    public void onLecturerClick(Lecturer lecturer, ImageView imageView) {
+    public void onLecturerClick(Lecturer lecturer, ImageView imageView, int adapterPosition) {
         Pair<View, String> imagePair = Pair.create((View) imageView, "transLecturerImage");
         Intent intent = new Intent(this, LecturerDetailActivity.class);
         intent.putExtra("lecturer", lecturer);
+        intent.putExtra("position", adapterPosition);
         //noinspection unchecked
         ActivityOptionsCompat activityOptionsCompat =
                 ActivityOptionsCompat.makeSceneTransitionAnimation(this, imagePair);
